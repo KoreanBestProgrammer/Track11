@@ -1,0 +1,27 @@
+package h_arraylist;
+
+public class J0209_1_dto {
+
+	String name, gender;
+	int age, money;
+	public J0209_1_dto(String name, String gender, int age, int money) {
+		super();
+		this.name = name;
+		this.gender = gender;
+		this.age = age;
+		this.money = money;
+	}
+	public String getName() {
+		return name;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public int getAge() {
+		return age;
+	}
+	public int getMoney() {
+		return money;
+	}
+	
+}
