@@ -5,12 +5,23 @@
 		<div id="b_left">
 			<%@ include file="../common_menu.jsp" %>
 		</div>
-		
+		<script>
+			function goView(no){
+				notice.t_gubun.value="view";
+				notice.t_no.value=no;
+				notice.method="post";
+				notice.action="Notice";
+				notice.submit();
+			}
+		</script>
 		<div id="b_right">
 			<p class="n_title">
 				NOTICE
 			</p>
-			
+			<form name="notice">
+				<input type="hidden" name="t_gubun" >
+				<input type="hidden" name="t_no">
+			</form>
 			<table class="boardForm">
 				<colgroup>
 					<col width="15%">
