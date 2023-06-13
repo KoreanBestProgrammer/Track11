@@ -24,7 +24,7 @@ public class NoticeSave implements CommonExecute {
 			String msg="등록되었습니다"; 
 		
 		try {
-			MultipartRequest mpr = new MultipartRequest(request,CommonUtil.getFile_dir_notice(),
+			MultipartRequest mpr = new MultipartRequest(request,CommonUtil.getFile_dir("notice"),
 									1024*1024*10,"utf-8",new DefaultFileRenamePolicy());
 			
 			String no = dao.getMaxNo();
@@ -49,6 +49,7 @@ public class NoticeSave implements CommonExecute {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		request.setAttribute("t_msg", msg);
 		request.setAttribute("t_url", "Notice");
 		

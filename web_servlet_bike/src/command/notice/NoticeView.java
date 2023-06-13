@@ -23,6 +23,7 @@ public class NoticeView implements CommonExecute {
 	    //다음글
 	    NoticeDto nextDto = dao.getNextNotice(no);
 	    
+	    request.setAttribute("t_dto", dto);
 	    request.setAttribute("t_preDto",preDto );
 	    request.setAttribute("t_nextDto", nextDto);
 	    

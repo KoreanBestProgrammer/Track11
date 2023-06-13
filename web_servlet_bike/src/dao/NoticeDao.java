@@ -215,6 +215,7 @@ public class NoticeDao {
 					   "        content='"+dto.getContent()+"', \r\n" + 
 					   "        attach='"+dto.getAttach()+"'"+
 					   "where no='"+dto.getNo()+"'";
+		
 		try {
 			con = DBConnection.getConnection();
 			ps = con.prepareStatement(query);

@@ -6,21 +6,13 @@ import java.util.Date;
 public class CommonUtil {
 	
 	//공지사항 첨부 경로
-	public static String getFile_dir_notice() {
-		String noticeDir = "C:/track11_kys/work_project/web_servlet_bike/WebContent/attach/notice/";
+	public static String getFile_dir(String dir) {
+		String noticeDir = "C:/track11_kys/work_project/Track11/Track11/web_servlet_bike/WebContent/attach/"+dir+"/";
 		return noticeDir;
-	}
-	public static String getFile_dir_news() {
-		String newsDir = "C:/track11_kys/work_project/web_servlet_bike/WebContent/attach/news/";
-		return newsDir;
 	}
 	public static int getMaxSize() {
 		int maxSize = 1024*1024*10;
 		return maxSize;
-	}
-	public static String getFile_dir_pds() {
-		String pdsDir = "C:/track11_kys/work_project/web_homepage_jsl/WebContent/attach/pds/";
-		return pdsDir;
 	}
 	
 	
