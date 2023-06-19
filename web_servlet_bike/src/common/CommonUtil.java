@@ -7,8 +7,8 @@ public class CommonUtil {
 	
 	//공지사항 첨부 경로
 	public static String getFile_dir(String dir) {
-		String noticeDir = "C:/track11_kys/work_project/Track11/Track11/web_servlet_bike/WebContent/attach/"+dir+"/";
-		return noticeDir;
+		String Dir = "C:/track11_kys/work_project/Track11/Track11/web_servlet_bike/WebContent/attach/"+dir+"/";
+		return Dir;
 	}
 	public static int getMaxSize() {
 		int maxSize = 1024*1024*10;

@@ -4,7 +4,7 @@
 <html>
 <head>
 <link href="css/sub_c.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/17da812ad5.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript">
@@ -31,10 +31,19 @@
 			bike.action="Member";
 			bike.submit();
 		}
+		function goAdmin(){
+			bike.t_gubun.value="memberList";
+			bike.method="post";
+			bike.action="Admin";
+			bike.submit();
+		}
 	</script>
 	
 		<div id="b_top_menu">
 			<ul class="top_menu">
+				<c:if test="${sessionLevel eq 'admin'}">
+					<li><a href="javascript:goAdmin()">admin</a></li>
+				</c:if>
 				<c:if test="${empty sessionId}">			
 					<li><a href="javascript:goWork('memberLogin')">LogIn</a></li>
 					<li><a href="javascript:goWork('memberJoin')">Join</a></li>

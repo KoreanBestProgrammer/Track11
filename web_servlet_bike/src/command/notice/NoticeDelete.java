@@ -17,17 +17,22 @@ public class NoticeDelete implements CommonExecute {
 		String no = request.getParameter("t_no");
 		String attach = request.getParameter("t_attach");
 		
-		String msg = "삭제성공!";
+		
 		
 		int result = dao.noticeDelete(no);
+		
+		boolean tf = true;
+		
 		if(result == 1) {
 			if(!attach.equals("")) {
-				File file = new File(CommonUtil.getFile_dir("notice"),attach);
-				boolean tf = file.delete();
+				File file = new File(CommonUtil.getFile_dir("notice"), attach);
+				tf = file.delete();
 				if(!tf) System.out.println("첨부파일 삭제오류!");
 			}
-		}else {
-			msg = "삭제실패!";
+		}
+		String msg = "삭제실패!";
+		if(result == 1 && tf) {
+			msg = "삭제성공!";
 		}
 		
 		

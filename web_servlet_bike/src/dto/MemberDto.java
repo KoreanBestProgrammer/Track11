@@ -78,6 +78,21 @@ public class MemberDto {
 		
 	}
 	
+	
+	
+	public MemberDto(String id, String name, String area, String mobile_1, String mobile_2, String mobile_3,
+			String reg_date, String last_login_date, String exit_date) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.area = area;
+		this.mobile_1 = mobile_1;
+		this.mobile_2 = mobile_2;
+		this.mobile_3 = mobile_3;
+		this.reg_date = reg_date;
+		this.last_login_date = last_login_date;
+		this.exit_date = exit_date;
+	}
 	public String getId() {
 		return id;
 	}

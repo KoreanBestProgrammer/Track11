@@ -1,67 +1,64 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%><html>
-<%@ include file = "../common_header.jsp" %>
-
-<script>
-	function goWriteForm(){
-		notice.t_gubun.value="writeForm";
-		notice.method="post";
-		notice.action="Notice";
-		notice.submit();
-	}
-	function goSearch(){
-		noti.method="post";
-		noti.action="Notice";
-		noti.submit();
-	}
-	function goPage(pageNumber){
-		noti.t_nowPage.value=pageNumber;
-		noti.method="post";
-		noti.action="Notice";
-		noti.submit();
-	}
-	function goView(no){
-		notice.t_gubun.value="view";
-		notice.t_no.value=no;
-		notice.method="post";
-		notice.action="Notice";
-		notice.submit();
-	}
-</script>
-
-
-		<div id="b_left">
-			<%@ include file = "../common_menu.jsp" %>
+    pageEncoding="UTF-8"%>
+    <%@include file = "../common_header.jsp" %>
+	<div id="b_left">
+			<%@include file = "../common_menu.jsp" %>
 		</div>
-		
-		<form name="notice">
-			<input type="hidden" name="t_gubun">
-			<input type="hidden" name="t_no">
-		</form>
+		<script>
+			function goWriteForm(){
+				news.t_gubun.value="writeForm";
+				news.method="post";
+				news.action="News";
+				news.submit();
+			}
+			function goSearch(){
+				list.method="post";
+				list.action="News";
+				list.submit();
+			}
+			function goPage(curpage){
+				list.t_nowPage.value=curpage;
+				list.method="post";
+				list.aciton="News";
+				list.submit();
+			}
+			function goView(no){
+				news.t_no.value=no;
+				news.t_gubun.value="view";
+				news.method="post";
+				news.action="News";
+				news.submit();
+			}
+		</script>
 		<div id="b_right">
-		<form name="noti">
-		<input type="hidden" name="t_nowPage">
+		<form name="news">
+			<input type="hidden" name="t_gubun">
+			<input type="hidden" name="t_no">	
+		</form>	
 			<p class="n_title">
-				NOTICE
+				NEWS
 			</p>
+			<form name="list">
+			<input type="hidden" name="t_nowPage">
 			<div class="record_group record_group_left">
 				<p><i class="fa-solid fa-bell"></i> 총게시글<span>${t_totalCount}</span>건</p>
 			</div>			
 			<p class="select_box select_box_right">
 				<select name="t_select" class="sel_box">
-					<option value="n.title" <c:if test="${t_select eq 'n.title'}">selected</c:if>>Title</option>
-					<option value="n.content" <c:if test="${t_select eq 'n.content'}">selected</c:if>>Content</option>
+					<option value="n.title" <c:if test="${t_select eq 'n.title' }">selected</c:if>>Title</option>
+					<option value="n.content" <c:if test="${t_select eq 'n.content' }">selected</c:if>>Content</option>
 				</select>
 				<input type="text" name="t_search" value="${t_search}" class="sel_text">
 
-				<button type="button" onclick="goSearch()" class="sel_button"><i class="fa fa-search"></i> SEARCH</button>
-			</p>			
-			</form>
+				<button onclick="goSearch()" type="button"  class="sel_button"><i class="fa fa-search"></i> SEARCH</button>
+			</p>
+		</form>				
+			
 			<table class="boardList">
 				<colgroup>
 					<col width="5%">
-					<col width="60%">
-					<col width="5%">
+					<col width="45%">
+					<col width="15%">
 					<col width="10%">
 					<col width="14%">
 					<col width="6%">
@@ -77,7 +74,6 @@
 					</tr>
 				</thead>
 				<tbody>
-				
 				<c:set var="number" value="${t_order}"></c:set>
 				<c:forEach items="${t_arr}" var="dto">
 					<tr>
@@ -89,20 +85,19 @@
 						<td>
 							<c:if test="${not empty dto.getAttach()}">
 								<img src="images/clip.png">
-							</c:if>
+							</c:if>	
 						</td>
-						<td>${dto.getReg_name()}</td>
+						<td>${dto.getName()}</td>
 						<td>${dto.getReg_date()}</td>
 						<td>${dto.getHit()}</td>
 					</tr>
-				</c:forEach>
-						
+				</c:forEach>		
 				</tbody>
 			</table>
 			
 			<div class="paging">
 			
-			${t_paging}
+			${t_paing}
 			
 			<c:if test="${sessionLevel eq 'admin'}">
 				<a href="javascript:goWriteForm()" class="write">글쓰기</a>
@@ -117,15 +112,27 @@
 				<a href="">5</a>
 				<a href=""><i class="fa fa-angle-right"></i></a>
 				<a href=""><i class="fa fa-angle-double-right"></i></a>
+			 -->	
 				
-			 -->
 			</div>
 		</div>	
 	</div>
 	
-<%@ include file = "../common_footer.jsp" %>
+	
+	<%@include file = "../common_footer.jsp" %>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
 
 
     

@@ -21,10 +21,12 @@
 				notice.submit();
 			}
 			function goDelete(no){
-				notice.t_gubun.value="delete";
-				notice.t_no.value=no;
-				notice.method="post";
-				notice.submit();
+				if(confirm("정말 삭제하시겠습니까?")){
+					notice.t_gubun.value="delete";
+					notice.t_no.value=no;
+					notice.method="post";
+					notice.submit();
+				}
 			}
 		</script>
 		<div id="b_right">
@@ -113,8 +115,10 @@
 				
 			</div>			
 			<div class="buttonGroup">
+			<c:if test="${sessionLevel eq 'admin' }">
 				<a href="javascript:goDelete('${t_dto.getNo()}')" class="butt">Delete</a>
 				<a href="javascript:goUpdateForm('${t_dto.getNo()}')" class="butt">Update</a>
+			</c:if>	
 				<a href="Notice" class="butt">List</a>
 			</div>	
 		</div>	

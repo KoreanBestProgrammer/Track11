@@ -9,26 +9,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import command.notice.NoticeDelete;
-import command.notice.NoticeList;
-import command.notice.NoticeSave;
-import command.notice.NoticeUpdate;
-import command.notice.NoticeView;
+import command.news.NewsDelete;
+import command.news.NewsList;
+import command.news.NewsSave;
+import command.news.NewsUpdate;
+import command.news.NewsView;
 import common.CommonToday;
 
 /**
- * Servlet implementation class Notice
+ * Servlet implementation class News
  */
-@WebServlet("/Notice")
-public class Notice extends HttpServlet {
+@WebServlet("/News")
+public class News extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Notice() {
-     
-    
+    public News() {
+        super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -36,48 +36,47 @@ public class Notice extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
 		String gubun = request.getParameter("t_gubun");
 		if(gubun == null) gubun = "list";
 		String viewPage = "";
-			
-		request.setAttribute("t_nowPage", "notice");
+		
+		request.setAttribute("t_nowPage", "news");
 		
 		//리스트
 		if(gubun.equals("list")) {
-			NoticeList notice = new NoticeList();
-			notice.execute(request);
-			viewPage = "notice/notice_list.jsp";	
+			NewsList news = new NewsList();
+			news.execute(request);
+			viewPage = "news/news_list.jsp";
 		//등록 폼	
 		}else if(gubun.equals("writeForm")) {
-			CommonToday notice = new CommonToday();
-			notice.execute(request);
-			viewPage = "notice/notice_write.jsp";	
-		//등록	
+			CommonToday news = new CommonToday();
+			news.execute(request);
+			viewPage = "news/news_write.jsp";
+		//등록		
 		}else if(gubun.equals("save")) {
-			NoticeSave notice = new NoticeSave();
-			notice.execute(request);
+			NewsSave news = new NewsSave();
+			news.execute(request);
 			viewPage = "common_alert.jsp";
 		//뷰	
 		}else if(gubun.equals("view")) {
-		NoticeView notice = new NoticeView();
-		notice.execute(request);	
-		viewPage = "notice/notice_view.jsp";
+			NewsView news = new NewsView();
+			news.execute(request);
+			viewPage = "news/news_view.jsp";
 		//업데이트 폼	
 		}else if(gubun.equals("updateForm")) {
-		NoticeView notice = new NoticeView();
-		notice.execute(request);
-		viewPage = "notice/notice_update.jsp";
+			NewsView news = new NewsView();
+			news.execute(request);
+			viewPage = "news/news_update.jsp";
 		//업데이트	
 		}else if(gubun.equals("update")) {
-		NoticeUpdate notice = new NoticeUpdate();
-		notice.execute(request);
-		viewPage = "common_alert.jsp";
+			NewsUpdate news = new NewsUpdate();
+			news.execute(request);
+			viewPage = "common_alert.jsp";
 		//삭제	
 		}else if(gubun.equals("delete")) {
-		NoticeDelete notice = new NoticeDelete();
-		notice.execute(request);
-		viewPage = "common_alert.jsp";
+			NewsDelete news = new NewsDelete();
+			news.execute(request);
+			viewPage = "common_alert.jsp";
 		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher(viewPage);
