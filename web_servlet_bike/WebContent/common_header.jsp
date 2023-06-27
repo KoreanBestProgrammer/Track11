@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head>
+<title>JSL TRACK11 김용석</title>
 <link href="css/sub_c.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/17da812ad5.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
@@ -116,7 +117,7 @@
 						</ul>
 					</div>					
 				</li>
-				<li><a href="">Tires & Tubes</a>
+				<li><a href="Product">Product</a>
 					<div class="div6">
 						<ul>
 							<li><a href="">6sub menu 1</a></li>

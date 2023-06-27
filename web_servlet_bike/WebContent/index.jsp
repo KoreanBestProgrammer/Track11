@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head>
 <link href="css/index_c.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>	
-<title>홍길동</title>
+<title>JSL TRACK11 김용석</title>
 <script type="text/javascript">
 	$(function(){
 		$(".main_menu > li > a").hover(function(){
@@ -76,6 +77,20 @@
 		bike.action="Admin";
 		bike.submit();
 	}
+	function goNoticeView(no){
+		bike.t_gubun.value="view";
+		bike.t_no.value=no;
+		bike.method="post";
+		bike.action="Notice";
+		bike.submit();
+	}
+	function goProductView(no){
+		bike.t_gubun.value="view";
+		bike.t_no.value=no;
+		bike.method="post";
+		bike.action="Product";
+		bike.submit();
+	}
 /*	
  function goJoin(){
 		bike.t_gubun.value="memberjoin";
@@ -101,6 +116,7 @@
 <div id="container">
 	<form name="bike">
 		<input type="hidden" name="t_gubun">
+		<input type="hidden" name="t_no">
 	</form>
 	<div id="container_top">	
 			<div id="b_top_menu">
@@ -174,7 +190,7 @@
 						<li>menu5 sub5</li>
 					</ul>
 				</div>
-				<div class="menu1"><a href=""><span class="maintitle">Tires & Tubes</span></a>
+				<div class="menu1"><a href="Product"><span class="maintitle">Product</span></a>
 					<ul>
 						<li>menu6 sub1</li>
 						<li>menu6 sub2</li>
@@ -210,7 +226,7 @@
 				<li><a href="">Clothing</a></li>
 				<li><a href="">Maintenance</a></li>
 				<li><a href="">Parts</a></li>
-				<li><a href="">Tires & Tubes</a></li>
+				<li><a href="Product">Product</a></li>
 				<li><a href="Notice">Notice & News</a></li>
 			</ul>
 		</div>
@@ -229,30 +245,93 @@
 		<hr><br>
 		<div id="b_left">
 			<p class="left_top">
-				<img src="images/left_top.jpg"><a href="notice/notice_list.html"><img src="images/left_right.jpg"></a>
+				<img src="images/left_top.jpg"><a href="Notice"><img src="images/left_right.jpg"></a>
 			</p>
+			
+			<c:set var="no" value="${t_arr.size()}"></c:set>
 			<div class="left_middle">
 				<ul>
-					<li><a href=""><span class="noti_t">7.Convert between </span><span class="noti_d">22-08-25</span></a></li>
-					<li><a href=""><span class="noti_t">6.회원운영정책 변경안내 </span><span class="noti_d">22-08-21</span></a></li>
-					<li><a href=""><span class="noti_t">5.회원운영정책 변경안내 </span><span class="noti_d">22-07-15</span></a></li>
-					<li><a href=""><span class="noti_t">4.회원운영정책 변경안내 </span><span class="noti_d">22-07-10</span></a></li>
-					<li><a href=""><span class="noti_t">3.회원운영정책 변경안내 </span><span class="noti_d">22-07-08</span></a></li>
-					<li><a href=""><span class="noti_t">2.회원운영정책 변경안내 </span><span class="noti_d">22-07-02</span></a></li>
-					<li><a href=""><span class="noti_t">1.회원운영정책 변경안내 </span><span class="noti_d">22-07-01</span></a></li>
+					<c:forEach items="${t_arr}" var="dto">
+						<li><a href="javascript:goNoticeView('${dto.getNo()}')">
+						<span class="noti_t">
+						
+							${no}.
+							<c:set var="no" value="${no-1}"></c:set>
+							<c:choose>
+							<c:when test="${fn:length(dto.getTitle()) > 10}">
+								${fn:substring(dto.getTitle(),0,5)}....
+							</c:when>
+							<c:otherwise>
+								${dto.getTitle()}
+							</c:otherwise>
+							</c:choose>
+							
+							</span>	
+						<span class="noti_d">
+							${fn:substring(dto.getReg_date(),2,12)}							
+						</span>
+						</a></li>
+					</c:forEach>
 				</ul>
 			</div>
 		
 		</div>
+		
+<style>
+	.b_center_middle img{
+		width:105px;			
+	}
+	.b_center_middle a{
+		position:relative;
+		display:inline-block;
+		width:105px;
+		height:105px;
+	}
+	.b_center_middle a .over{
+		position:absolute;
+		top:0;
+		opacity:0;
+		background:white;
+		width:105px;
+		height:75px;
+		padding-top:30px;
+		transition:0.5s;
+		transform:translate(0,50px);
+	}
+	.b_center_middle a:hover .over{
+		opacity:0.8;
+		transform:translate(0,0);
+	} 
+	
+	.over p{
+		text-align:center;
+	}
+	.over .p_name{
+		font-size:11px;
+		font-weight:bold;
+	}
+	.over .p_price{
+		font-size:10px;
+		color:blue;
+	}
+</style>
+		
 		<div id="b_center">
 			<p class="b_center_top"><img src="images/center_top.jpg"></p>
-			<p class="b_center_middle">
-				<a href=""><img src="images/center_middle_1.jpg"><a href=""><img src="images/center_middle_2.jpg"><a href=""><img src="images/center_middle_3.jpg"></a>
-			</p>
-			<p class="b_center_bottom">
-				<a href=""><img src="images/center_middle_4.jpg"><a href=""><img src="images/center_middle_5.jpg"><a href=""><img src="images/center_middle_6.jpg"></a>
-			</p>
+			
+			<div class="b_center_middle">
+				<c:forEach items="${t_proArr}" var="dto">
+					<a href="javascript:goProductView('${dto.getNo()}')"><img src="attach/product/${dto.getProduct_photo()}">
+						<div class="over">
+							<p class="p_name">${dto.getProduct_name()}</p>
+							<p class="p_price">${dto.getProduct_price()}</p>
+						</div>
+					</a>
+				</c:forEach>
+			</div>	
+			
 		</div>
+		
 		<div id="b_right">
 			<img src="images/center_right.jpg">
 		</div>

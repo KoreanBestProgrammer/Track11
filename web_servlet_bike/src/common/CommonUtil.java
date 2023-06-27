@@ -6,7 +6,24 @@ import java.util.Date;
 public class CommonUtil {
 	
 	//공지사항 첨부 경로
+public static String getFile_dir_product(){
+		
+		
+		String dir =  "C:/track11_kys/work_project/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/web_servlet_bike/attach/product";
+		 
+		
+		/*String Dir = "C:/track11_kys/work_project/Track11/Track11/web_servlet_bike/WebContent/attach/"+dir+"/";
+		return Dir;*/
+				
+		return dir;
+	}
+	
 	public static String getFile_dir(String dir) {
+		
+		/*
+		 C:\track11_kys\work_project\.metadata\.plugins\org.eclipse.wst.server.core\tmp1\wtpwebapps\web_servlet_bike\attach\product
+		 */
+		
 		String Dir = "C:/track11_kys/work_project/Track11/Track11/web_servlet_bike/WebContent/attach/"+dir+"/";
 		return Dir;
 	}

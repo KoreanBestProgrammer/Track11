@@ -1,4 +1,4 @@
-package command.admin;
+package command.product;
 
 import java.util.ArrayList;
 
@@ -6,21 +6,21 @@ import javax.servlet.http.HttpServletRequest;
 
 import common.CommonExecute;
 import common.CommonUtil;
-import dao.MemberDao;
-import dto.MemberDto;
+import dao.ProductDao;
+import dto.ProductDto;
 
-public class MemberList implements CommonExecute {
+public class ProductList implements CommonExecute {
 
 	@Override
 	public void execute(HttpServletRequest request) {
-		MemberDao dao = new MemberDao();
+		ProductDao dao = new ProductDao();
 		
 		String select = request.getParameter("t_select");
-		String search = request.getParameter("t_search");
 		String count = request.getParameter("t_displayCount");
+		String search = request.getParameter("t_search");
 		
 		if(select == null) {
-			select = "name";
+			select = "product_name";
 			search = "";
 			count = "5";
 		}
@@ -47,19 +47,17 @@ public class MemberList implements CommonExecute {
 		
 		int order = totalCount - ((current_page - 1)*list_setup_count);
 		
-		String paging = CommonUtil.pageListPost(current_page, total_page, pageNumber_count);
+		ArrayList<ProductDto> arr = dao.getListProduct(select,search,start,end);
 		
-		ArrayList<MemberDto> arr = dao.getMemberList(select,search,start,end);
+		String paging = CommonUtil.pageListPost(current_page, total_page, pageNumber_count);
 		
 		request.setAttribute("t_select", select);
 		request.setAttribute("t_search", search);
+		request.setAttribute("t_count", count);
 		request.setAttribute("t_arr", arr);
-		request.setAttribute("t_totalCount", totalCount);
 		request.setAttribute("t_paging", paging);
 		request.setAttribute("t_order", order);
-		request.setAttribute("t_displayCount", count);
-		
-		
+		request.setAttribute("t_totalCount", totalCount);
 
 	}
 

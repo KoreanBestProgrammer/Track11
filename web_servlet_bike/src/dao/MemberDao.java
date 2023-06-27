@@ -324,7 +324,9 @@ public class MemberDao {
 					"to_char(last_login_date,'yyyy-mm-dd hh24:mi:ss') as last_login_date,\r\n" + 
 					"to_char(exit_date,'yyyy-mm-dd hh24:mi:ss') as exit_date\r\n" + 
 					"from bike_김용석_member\r\n" + 
-					"where "+select+" like '%"+search+"%') tbl )\r\n" + 
+					"where "+select+" like '%"+search+"%'\r\n" + 
+					"order by reg_date desc) \r\n" + 
+					"tbl )\r\n" + 
 					"where rnum >= "+start+" and rnum <= "+end+"";
 			
 			try {
