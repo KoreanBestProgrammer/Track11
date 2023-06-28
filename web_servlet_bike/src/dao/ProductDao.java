@@ -130,7 +130,7 @@ public class ProductDao {
 				"from bike_김용석_product \r\n" + 
 				"order by no desc) \r\n" + 
 				"tbl) \r\n" + 
-				"where rnum >= 1 and rnum <= 6";
+				"where rnum >= 1 and rnum <= 2";
 		
 		try {
 			con=DBConnection.getConnection();
@@ -144,12 +144,21 @@ public class ProductDao {
 				
 				ProductDto dto = new ProductDto(no, product_name, product_price,product_photo);
 				arr.add(dto);
+				
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.out.println(query);
 		}finally {
 			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		ProductDto dto = null;
+		
+		if(arr.size() <= 6) {
+			for(int k = arr.size() ; k < 6 ; k++) {
+				arr.add(dto);
+			}
 		}
 		
 		return arr;

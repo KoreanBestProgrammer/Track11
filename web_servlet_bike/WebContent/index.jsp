@@ -314,20 +314,45 @@
 		font-size:10px;
 		color:blue;
 	}
+	.over2 {
+		position:relative;
+		text-align:center;
+		height: 105px;
+		width:105px;
+		line-height: 105px;
+		
+	} 
+	
+	.over2 .p_name{
+		position:absolute;
+		text-align:center;
+		margin-left:9px;
+	}
 </style>
 		
 		<div id="b_center">
 			<p class="b_center_top"><img src="images/center_top.jpg"></p>
 			
 			<div class="b_center_middle">
-				<c:forEach items="${t_proArr}" var="dto">
-					<a href="javascript:goProductView('${dto.getNo()}')"><img src="attach/product/${dto.getProduct_photo()}">
-						<div class="over">
-							<p class="p_name">${dto.getProduct_name()}</p>
-							<p class="p_price">${dto.getProduct_price()}</p>
-						</div>
-					</a>
-				</c:forEach>
+			<c:forEach items="${t_proArr}" var="dto">
+				<c:choose>
+					<c:when test="${not empty dto}">
+							<a href="javascript:goProductView('${dto.getNo()}')"><img src="attach/product/${dto.getProduct_photo()}">
+								<div class="over">
+									<p class="p_name">${dto.getProduct_name()}</p>
+									<p class="p_price">${dto.getProduct_price()}</p>
+								</div>
+							</a>
+					</c:when>
+					<c:otherwise>
+							<a>
+								<div class="over2">
+									<p class="p_name">상품준비중</p>
+								</div>
+							</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
 			</div>	
 			
 		</div>
