@@ -26,7 +26,13 @@
 	    		view.submit();
     		}
     	}
-    	
+    	function goPurchaseForm(no){
+    		view.t_gubun.value="purchaseForm";
+    		view.t_no.value=no;
+    		view.method="post";
+    		view.action="Productsale";
+    		view.submit();
+    	}
     </script>
 <div id="b_left">
 			
@@ -158,6 +164,7 @@
 				<a href="javascript:goUpdateForm('${t_dto.getNo()}')" class="butt">Update</a>
 			</c:if>	
 				<a href="Product" class="butt">List</a>
+				<a href="javascript:goPurchaseForm('${t_dto.getNo()}')" class="butt">구매하기</a>
 			</div>	
 		</div>	
 	</div>

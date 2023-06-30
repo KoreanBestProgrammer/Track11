@@ -5,9 +5,8 @@
 		<div id="b_left">
 			<P>MEMBER</P>
 			<ul>
-				<li><a href="javascript:goWork('memberLogin')">LOGIN</a></li>
-				<li><a href="javascript:goWork('memberPasswordFind')">ID / PASSWORD</a></li>
 				<li><a><span class="fnt"><i class="fas fa-apple-alt"></i></span>Member</a></li>
+				<li><a href="Productsale">MY ORDER</a></li>
 			</ul>
 		</div>
 		<script>

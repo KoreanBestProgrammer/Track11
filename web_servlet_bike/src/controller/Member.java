@@ -17,6 +17,7 @@ import command.member.MemberMyinfo;
 import command.member.MemberPasswordSend;
 import command.member.MemberPasswordUpdate;
 import command.member.MemberUpdate;
+import common.CommonExecute;
 
 /**
  * Servlet implementation class Member
@@ -42,6 +43,8 @@ public class Member extends HttpServlet {
 		if(gubun == null) {
 			gubun = "memberLogin";
 		}
+		
+		request.setAttribute("t_nowPage", "member");
 		
 		String viewPage="";
 		//회원가입 폼

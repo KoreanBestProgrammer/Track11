@@ -7,6 +7,7 @@
 				<li><a href="javascript:goWork('memberLogin')"><span class="fnt"><i class="fas fa-apple-alt"></i></span>LOGIN</a></li>
 				<li><a href="javascript:goWork('memberPasswordFind')">ID / PASSWORD</a></li>
 				<li><a href="javascript:goWork('memberJoin')">Join</a></li>
+				
 			</ul>
 		</div>
 		<script>

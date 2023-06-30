@@ -353,6 +353,13 @@
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
+		<!--<c:forEach begin="1" end="${6 - t_proArr.size()}" step="1">
+					 <a>
+						<div class="over2">
+							<p class="p_name">상품준비중</p>
+						</div>
+					</a>		
+			</c:forEach>-->
 			</div>	
 			
 		</div>
