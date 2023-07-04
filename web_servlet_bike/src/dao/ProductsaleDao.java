@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;
 
@@ -41,11 +42,19 @@ public class ProductsaleDao {
 			ps=con.prepareStatement(query);
 			rs=ps.executeQuery();
 			if(rs.next()) {
-				no = rs.getString("d_no"); //S20230630001
-				int number = Integer.parseInt(no.substring(9))+1; //2
-				DecimalFormat df = new DecimalFormat("000"); 
-				String order = df.format(number); //002
-				no = no.substring(0,9)+order;
+				no = rs.getString("d_no"); //S20230630007
+				
+				String last_date = no.substring(1, 9);
+				if(!today.equals(last_date)) {
+					no = "S"+today+"001"; 
+				}else {
+					int number = Integer.parseInt(no.substring(9))+1; //2
+					DecimalFormat df = new DecimalFormat("000"); 
+					String order = df.format(number); //002
+					no = no.substring(0,9)+order;					
+				}
+				
+
 				//number = number+1; //20230630001
 				//DecimalFormat df = new DecimalFormat("S00000000000"); 
 				//no = df.format(number); //S20230630001
@@ -79,6 +88,161 @@ public class ProductsaleDao {
 			DBConnection.closeDB(con, ps, rs);
 		}
 		return result;
+	}
+
+
+	public ArrayList<ProductsaleDto> getProductAdminList(int start, int end, String select, String search, String state) {
+		ArrayList<ProductsaleDto> arr = new ArrayList<>();
+		String query = /*
+						"select d_no,p_no,c_id,d_state,to_char(purchase_date,'yyyy-mm-dd') as purchase_date,purchase_way from bike_김용석_productsale\r\n" + 
+						"where "+select+" like '%"+search+"%'\r\n" + 
+						"and d_state like '%"+state+"%'\r\n" + 
+						"order by purchase_date desc";
+					  */
+					"select * from\r\n" + 
+					"(select rownum as rnum, tbl.* from\r\n" + 
+					"(select d_no,p_no,c_id,d_state,to_char(purchase_date,'yyyy-mm-dd') as purchase_date,purchase_way from bike_김용석_productsale\r\n" + 
+					"where "+select+" like '%"+search+"%'\r\n" + 
+					"and d_state like '%"+state+"%'\r\n" + 
+					"order by d_no desc)tbl)\r\n" + 
+					"where rnum >= "+start+" and rnum <= "+end+"";	
+				
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				String d_no = rs.getString("d_no");
+				String p_no = rs.getString("p_no");
+				String c_id = rs.getString("c_id");
+				String d_state = rs.getString("d_state");
+				String purchase_date = rs.getString("purchase_date");
+				String purchase_way = rs.getString("purchase_way");
+				
+				ProductsaleDto dto = new ProductsaleDto(d_no, p_no, d_state, c_id, purchase_way, purchase_date);
+				arr.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println(query);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		return arr;
+	}
+
+
+	public int getTotalCount(String select, String search, String state) {
+		int count = 0;
+		String query = "select count(*) as count from bike_김용석_productsale\r\n" + 
+				"where "+select+" like '%"+search+"%'\r\n" + 
+				"and d_state like '%"+state+"%'";
+		
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt("count");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println(query);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		return count;
+	}
+
+
+	public ProductsaleDto getProductsaleView(String d_no) {
+		ProductsaleDto dto = null;
+		String query="select d_no,p_no,c_id,d_state,purchase_way,\r\n" + 
+				"to_char(purchase_date,'yyyy-mm-dd hh24:mi:ss')as purchase_date,price,d_email,d_address\r\n" + 
+				"from bike_김용석_productsale\r\n" + 
+				"where d_no = '"+d_no+"'";
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				String p_no = rs.getString("p_no");
+				String c_id = rs.getString("c_id");
+				String d_state = rs.getString("d_state");
+				String purchase_way = rs.getString("purchase_way");
+				String purchase_date = rs.getString("purchase_date");
+				String price = rs.getString("price");
+				String d_email = rs.getString("d_email");
+				String d_address = rs.getString("d_address");
+				
+				dto = new ProductsaleDto(d_no, p_no, d_state, c_id, d_email, d_address, purchase_way, price, purchase_date);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println(query);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		return dto;
+	}
+
+
+	public ProductsaleDto getProductsalePreView(String d_no) {
+		ProductsaleDto dto = null;
+		String query="select a.d_no, b.p_no from\r\n" + 
+				"(select max(d_no) as d_no from bike_김용석_productsale\r\n" + 
+				"where d_no < '"+d_no+"')a, bike_김용석_productsale b\r\n" + 
+				"where a.d_no = b.d_no";
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				String preD_no = rs.getString("d_no");
+				String p_no = rs.getString("p_no");
+				
+				dto = new ProductsaleDto(preD_no, p_no);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println(query);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		
+		return dto;
+	}
+
+
+	public ProductsaleDto getProductsaleNextView(String d_no) {
+		ProductsaleDto dto = null;
+		String query="select a.d_no, b.p_no from\r\n" + 
+				"(select min(d_no) as d_no from bike_김용석_productsale\r\n" + 
+				"where d_no > '"+d_no+"')a, bike_김용석_productsale b\r\n" + 
+				"where a.d_no = b.d_no";
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				String nextD_no = rs.getString("d_no");
+				String p_no = rs.getString("p_no");
+				
+				dto = new ProductsaleDto(nextD_no, p_no);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println(query);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		
+		return dto;
 	}
 	
 	

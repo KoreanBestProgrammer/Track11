@@ -91,6 +91,12 @@
 		bike.action="Product";
 		bike.submit();
 	}
+	function goMyorder(){
+		bike.t_gubun.value="myorder";
+		bike.method="post";
+		bike.action="Productsale";
+		bike.submit();
+	}
 /*	
  function goJoin(){
 		bike.t_gubun.value="memberjoin";
@@ -130,6 +136,9 @@
 						<li><a href="javascript:goWork('memberJoin')">Join</a></li>				
 					</c:if>
 					<c:if test="${not empty sessionId }">
+						<c:if test="${sessionLevel eq 'member'}">
+				    		<li><a href="javascript:goMyorder()">My order</a></li>
+				   		</c:if>
 						<li><a href="javascript:goWork('memberMyinfo')">MyInfo</a></li>
 						<li><a href="javascript:goWork('memberLogout')">Logout</a></li>
 					</c:if>

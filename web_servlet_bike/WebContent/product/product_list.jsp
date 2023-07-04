@@ -54,7 +54,14 @@
 			</form>	
 			<form name="list">	
 			<input type="hidden" name="t_nowPage">
+				<select name="t_productLevel" class="sel_box">
+					<option value="" <c:if test="${t_productLevel eq ''}">selected</c:if>>제품우선순위</option>
+					<option value="1" <c:if test="${t_productLevel eq '1'}">selected</c:if>>1</option>
+					<option value="2" <c:if test="${t_productLevel eq '2'}">selected</c:if>>2</option>
+					<option value="3" <c:if test="${t_productLevel eq '3'}">selected</c:if>>3</option>
+				</select>
 			<p class="select_box select_box_right">
+				
 				<select name="t_select" class="sel_box">
 					<option value="no" <c:if test="${t_select eq 'no'}">selected</c:if>>제품번호</option>
 					<option value="product_name" <c:if test="${t_select eq 'product_name'}">selected</c:if>>제품명</option>

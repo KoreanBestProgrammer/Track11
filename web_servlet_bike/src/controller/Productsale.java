@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import command.member.MemberMyinfo;
 import command.product.ProductView;
 import command.productsale.ProductPurchase;
+import command.productsale.ProductsaleAdmin;
+import command.productsale.ProductsaleList;
+import command.productsale.ProductsaleView;
 
 /**
  * Servlet implementation class Productsale
@@ -36,8 +39,10 @@ public class Productsale extends HttpServlet {
 		String gubun = request.getParameter("t_gubun");
 		String viewPage = "";
 		
+		request.setAttribute("t_nowPage", "productsale");
+		
 		if(gubun == null) {
-			gubun = "myorder";
+			gubun = "productadmin";
 		}
 		
 		if(gubun.equals("purchaseForm")) {
@@ -49,8 +54,17 @@ public class Productsale extends HttpServlet {
 			product.execute(request);
 			viewPage="common_alert.jsp";
 		}else if(gubun.equals("myorder")) {
-			
+			ProductsaleList product = new ProductsaleList();
+			product.execute(request);
 			viewPage = "Productsale/Productsale_myorder.jsp";
+		}else if(gubun.equals("productadmin")) {
+			ProductsaleAdmin product = new ProductsaleAdmin();
+			product.execute(request);
+			viewPage = "Productsale/Productsale_productadmin.jsp";
+		}else if(gubun.equals("productsaleview")) {
+			ProductsaleView product = new ProductsaleView();
+			product.execute(request);
+			viewPage = "Productsale/Productsale_productsaleview.jsp";
 		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher(viewPage);

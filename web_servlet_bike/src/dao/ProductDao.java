@@ -64,10 +64,12 @@ public class ProductDao {
 		return result;
 	}
 
-	public int getTotalCount(String select, String search) {
+	public int getTotalCount(String select, String search, String productLevel) {
 		int count = 0;
 		String query = "select count(*)as count from bike_김용석_product\r\n" + 
-				"where "+select+" like '%"+search+"%'";
+				"where "+select+" like '%"+search+"%'\r\n" + 
+				"and ranking like '%"+productLevel+"%'" ; 
+				
 		
 		try {
 			con=DBConnection.getConnection();
@@ -86,14 +88,15 @@ public class ProductDao {
 		return count;
 	}
 
-	public ArrayList<ProductDto> getListProduct(String select, String search, int start, int end) {
+	public ArrayList<ProductDto> getListProduct(String select, String search, int start, int end, String productLevel) {
 		ArrayList<ProductDto> arr = new ArrayList<>();
 		String query = "select * from\r\n" + 
 				"(select rownum as rnum, tbl.*from \r\n" + 
 				"(select no,product_name,product_photo,to_char(reg_date,'yyyy-mm-dd')as reg_date\r\n" + 
 				",hit from bike_김용석_product\r\n" + 
 				"where "+select+" like '%"+search+"%'\r\n" + 
-				"order by no desc)\r\n" + 
+				"and ranking like '%"+productLevel+"%'\r\n" + 
+				"order by reg_date desc)\r\n" + 
 				"tbl)\r\n" + 
 				"where rnum >= "+start+" and rnum <= "+end+"";
 		

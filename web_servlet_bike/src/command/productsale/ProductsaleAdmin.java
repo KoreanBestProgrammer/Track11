@@ -1,4 +1,4 @@
-package command.product;
+package command.productsale;
 
 import java.util.ArrayList;
 
@@ -6,29 +6,29 @@ import javax.servlet.http.HttpServletRequest;
 
 import common.CommonExecute;
 import common.CommonUtil;
-import dao.ProductDao;
-import dto.ProductDto;
+import dao.ProductsaleDao;
+import dto.ProductsaleDto;
 
-public class ProductList implements CommonExecute {
+public class ProductsaleAdmin implements CommonExecute {
 
 	@Override
 	public void execute(HttpServletRequest request) {
-		ProductDao dao = new ProductDao();
-		
+		ProductsaleDao dao = new ProductsaleDao();
+			
 		String select = request.getParameter("t_select");
-		String count = request.getParameter("t_displayCount");
+		String state = request.getParameter("t_select_state");
+		String count = request.getParameter("t_count");
 		String search = request.getParameter("t_search");
-		String productLevel = request.getParameter("t_productLevel");
 		
 		if(select == null) {
-			select = "product_name";
-			search = "";
-			count = "5";
-			productLevel = "";
+			search="";
+			select="d_no";
+			count="5";
+			state="";
 		}
 		
 		/* paging 설정 start*/
-		int totalCount = dao.getTotalCount(select,search,productLevel);
+		int totalCount = dao.getTotalCount(select,search,state);
 		int list_setup_count = Integer.parseInt(count);  //한페이지당 출력 행수 
 		int pageNumber_count = 3;  //한페이지당 출력 페이지 갯수
 		
@@ -49,19 +49,19 @@ public class ProductList implements CommonExecute {
 		
 		int order = totalCount - ((current_page - 1)*list_setup_count);
 		
-		ArrayList<ProductDto> arr = dao.getListProduct(select,search,start,end,productLevel);
-		
 		String paging = CommonUtil.pageListPost(current_page, total_page, pageNumber_count);
 		
-		request.setAttribute("t_productLevel", productLevel);
+		ArrayList<ProductsaleDto> arr = dao.getProductAdminList(start,end,select,search,state);
+		
+		
+		request.setAttribute("t_arr", arr);
 		request.setAttribute("t_select", select);
 		request.setAttribute("t_search", search);
 		request.setAttribute("t_count", count);
-		request.setAttribute("t_arr", arr);
-		request.setAttribute("t_paging", paging);
+		request.setAttribute("t_state", state);
 		request.setAttribute("t_order", order);
+		request.setAttribute("t_paging", paging);
 		request.setAttribute("t_totalCount", totalCount);
-
 	}
 
 }

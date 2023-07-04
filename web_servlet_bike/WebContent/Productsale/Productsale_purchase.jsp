@@ -75,7 +75,7 @@
 						<th>지불방법</th>
 						<td colspan="2">
 							<input type="radio" value="카드" name="t_purchaseway" class="middleCheck" /> 카드&nbsp;&nbsp;        
-					  		<input type="radio" value="무통장입금" name="t_purchaseway" class="middleCheck" /> 무통장입금 
+					  		<input type="radio" value="무통장입금" name="t_purchaseway" class="middleCheck" /> 무통장입금&nbsp;&nbsp;신한 110468438898 예금주:김용석
 					  	</td>
 					</tr>	
 				</tbody>

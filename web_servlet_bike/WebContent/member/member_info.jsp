@@ -6,7 +6,9 @@
 			<P>MEMBER</P>
 			<ul>
 				<li><a><span class="fnt"><i class="fas fa-apple-alt"></i></span>Member</a></li>
-				<li><a href="Productsale">MY ORDER</a></li>
+				<c:if test="${sessionLevel eq 'member'}">
+					<li><a href="javascript:goMyorder()">MY ORDER</a></li>
+				</c:if>
 			</ul>
 		</div>
 		<script>
@@ -30,7 +32,12 @@
 				bike.action="Member";
 				bike.submit();
 			}
-		
+			function goMyorder(){
+				bike.t_gubun.value="myorder";
+				bike.method="post";
+				bike.action="Productsale";
+				bike.submit();
+			}
 		</script>
 		<div id="b_right">
 			<p class="n_title">

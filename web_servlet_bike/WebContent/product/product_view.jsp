@@ -74,11 +74,12 @@
 						<td colspan="3">${t_dto.getProduct_name()}</td>
 						
 					</tr>
-					<tr>
-						<th>제품순위</th>
-						<td colspan="3">${t_dto.getRanking()}</td>
-						
-					</tr>		
+					<c:if test="${sessionLevel eq 'admin'}">
+						<tr>
+							<th>제품순위</th>
+							<td colspan="3">${t_dto.getRanking()}</td>
+						</tr>
+					</c:if>		
 					<tr>
 						<th>제품가격</th>
 						<td colspan="3">${t_dto.getProduct_price()}</td>
@@ -164,7 +165,9 @@
 				<a href="javascript:goUpdateForm('${t_dto.getNo()}')" class="butt">Update</a>
 			</c:if>	
 				<a href="Product" class="butt">List</a>
-				<a href="javascript:goPurchaseForm('${t_dto.getNo()}')" class="butt">구매하기</a>
+				<c:if test="${sessionLevel eq 'member'}">
+					<a href="javascript:goPurchaseForm('${t_dto.getNo()}')" class="butt">구매하기</a>
+				</c:if>	
 			</div>	
 		</div>	
 	</div>

@@ -38,7 +38,7 @@ public class ProductPurchase implements CommonExecute {
 		}
 		
 		request.setAttribute("t_msg", msg);
-		request.setAttribute("t_url", "Product");
+		request.setAttribute("t_url", "Productsale?t_gubun=myorder");
 	}
 
 }

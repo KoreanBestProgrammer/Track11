@@ -5,71 +5,82 @@
 			<P>MEMBER</P>
 			<ul>
 				<li><a href="Member?t_gubun=memberMyinfo">Member</a></li>
-				<li><a href="Productsale"><span class="fnt"><i class="fas fa-apple-alt"></i></span>MY ORDER</a></li>
+				<li><a href="javascript:goMyorder()"><span class="fnt"><i class="fas fa-apple-alt"></i></span>MY ORDER</a></li>
 			</ul>
 		</div>
-		
+		<script>
+			function goMyorder(){
+					bike.t_gubun.value="myorder";
+					bike.method="post";
+					bike.action="Productsale";
+					bike.submit();
+			}
+		</script>
 		<div id="b_right">
 			<p class="n_title">
-				NOTICE
+				구매이력
 			</p>
+			<div class="record_group record_group_left">
+				<p><i class="fa-solid fa-bell"></i> 총게시글<span> 4 </span>건</p>
+			</div>			
+			<p class="select_box select_box_right">
+				<select name="t_select" class="sel_box">
+					<option value="" selected >Title</option>
+					<option value=""  >Content</option>
+				</select>
+				<input type="text" name="" value="" class="sel_text">
+
+				<button type="button"  class="sel_button"><i class="fa fa-search"></i> SEARCH</button>
+			</p>			
 			
-			<table class="boardForm">
+			<table class="boardList">
 				<colgroup>
-					<col width="15%">
-					<col width="55%">
+					<col width="5%">
+					<col width="60%">
+					<col width="5%">
 					<col width="10%">
-					<col width="20%">
+					<col width="14%">
+					<col width="6%">
 				</colgroup>
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>Title</th>
+						<th>Attach</th>
+						<th>Reg Name</th>
+						<th>Reg Date</th>
+						<th>Hit</th>
+					</tr>
+				</thead>
 				<tbody>
 					<tr>
-						<th>Title</th>
-						<td colspan="2">구매 절차 과정 안내 드립니다.</td>
-						<td> <i class="far fa-eye"></i> 152</td>
-					</tr>	
-					<tr>
-						<th>Content</th>
-						<td colspan="3">
-							<textarea class="textArea_H250_noBorder" readonly>구매 절차 과정 안내 드립니다.구매 절차 과정 안내 드립니다.구매 절차 과정 안내 드립니다.</textarea>
-						</td>
-					</tr>	
-					<tr>
-						<th>Attach</th>
-						<td colspan="3">구매안내.hwp</td>
-					</tr>	
-					<tr>
-						<th>Writer</th>
+						<td>9</td>
+						<td class="t_left"><a href="notice_view.html">구매 절차 과정 안내 드립니다.</a></td>
+						<td><img src="../images/clip.png"></td>
 						<td>관리자</td>
-						<th>RegDate</th>
-						<td>2020-09-01</td>
+						<td>2020-07-28</td>
+						<td>412</td>
 					</tr>	
-
 				</tbody>
 			</table>
-			<div class="preNext">
-				<a href="javascript:goView('N002')">
-					<p class="pre"><span><i class="fa-solid fa-circle-arrow-left"></i> 이전글</span> 
-						<span class="preNextTitle">
-									이전 게시물 제목...
-						</span>
-					</p>
-				</a>
-				<a href="javascript:goView('N004')">
-					<p class="next"><span>다음글 <i class="fa-solid fa-circle-right"></i></span>
-						<span class="preNextTitle">
-									다음 게시물 제목...
-						</span>
-					</p>
-				</a>
-				
-			</div>			
-			<div class="buttonGroup">
-				<a href="" class="butt">Delete</a>
-				<a href="notice_update.html" class="butt">Update</a>
-				<a href="notice_list.html" class="butt">List</a>
-			</div>	
+			
+			<div class="paging">
+				<a href=""><i class="fa fa-angle-double-left"></i></a>
+				<a href=""><i class="fa fa-angle-left"></i></a>
+				<a href="" class="active">1</a>
+				<a href="">2</a>
+				<a href="">3</a>
+				<a href="">4</a>
+				<a href="">5</a>
+				<a href=""><i class="fa fa-angle-right"></i></a>
+				<a href=""><i class="fa fa-angle-double-right"></i></a>
+				<a href="notice_write.html" class="write">글쓰기</a>
+			</div>
 		</div>	
 	</div>
+	
+	
+	
 	<%@ include file = "../common_footer.jsp" %>
 </body>
 </html>
@@ -79,4 +90,3 @@
 
 
 
-    

@@ -8,6 +8,24 @@ public class ProductsaleDto {
 	
 	
 	
+//이전뷰,다음뷰	
+	public ProductsaleDto(String d_no, String p_no) {
+		super();
+		this.d_no = d_no;
+		this.p_no = p_no;
+	}
+	//판매리스트
+	public ProductsaleDto(String d_no, String p_no, String d_state, String c_id, String purchase_way,
+			String purchase_date) {
+		super();
+		this.d_no = d_no;
+		this.p_no = p_no;
+		this.d_state = d_state;
+		this.c_id = c_id;
+		this.purchase_way = purchase_way;
+		this.purchase_date = purchase_date;
+	}
+//뷰, 등록(상품구매)
 	public ProductsaleDto(String d_no, String p_no, String d_state, String c_id, String d_email, String d_address,
 			String purchase_way, String price, String purchase_date) {
 		super();
