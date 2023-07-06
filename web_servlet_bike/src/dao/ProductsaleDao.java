@@ -101,8 +101,10 @@ public class ProductsaleDao {
 					  */
 					"select * from\r\n" + 
 					"(select rownum as rnum, tbl.* from\r\n" + 
-					"(select d_no,p_no,c_id,d_state,to_char(purchase_date,'yyyy-mm-dd') as purchase_date,purchase_way from bike_김용석_productsale\r\n" + 
-					"where "+select+" like '%"+search+"%'\r\n" + 
+					"(select a.d_no,a.p_no,a.c_id,a.d_state,to_char(a.purchase_date,'yyyy-mm-dd') as purchase_date,a.purchase_way,b.product_name\r\n" + 
+					"from bike_김용석_productsale a, bike_김용석_product b\r\n" + 
+					"where a.p_no = b.no\r\n" + 
+					"and "+select+" like '%"+search+"%'\r\n" + 
 					"and d_state like '%"+state+"%'\r\n" + 
 					"order by d_no desc)tbl)\r\n" + 
 					"where rnum >= "+start+" and rnum <= "+end+"";	
@@ -118,8 +120,9 @@ public class ProductsaleDao {
 				String d_state = rs.getString("d_state");
 				String purchase_date = rs.getString("purchase_date");
 				String purchase_way = rs.getString("purchase_way");
+				String product_name = rs.getString("product_name");
 				
-				ProductsaleDto dto = new ProductsaleDto(d_no, p_no, d_state, c_id, purchase_way, purchase_date);
+				ProductsaleDto dto = new ProductsaleDto(d_no, p_no, d_state, c_id, purchase_way, purchase_date, product_name);
 				arr.add(dto);
 			}
 		}catch(Exception e) {
@@ -159,10 +162,11 @@ public class ProductsaleDao {
 
 	public ProductsaleDto getProductsaleView(String d_no) {
 		ProductsaleDto dto = null;
-		String query="select d_no,p_no,c_id,d_state,purchase_way,\r\n" + 
-				"to_char(purchase_date,'yyyy-mm-dd hh24:mi:ss')as purchase_date,price,d_email,d_address\r\n" + 
-				"from bike_김용석_productsale\r\n" + 
-				"where d_no = '"+d_no+"'";
+		String query="select a.d_no,a.p_no,a.c_id,a.d_state,a.purchase_way,b.product_photo,b.product_name,to_char(a.d_date,'yyyy-mm-dd hh24:mi:ss')as d_date,\r\n" + 
+				"to_char(a.purchase_date,'yyyy-mm-dd hh24:mi:ss')as purchase_date,a.price,a.d_email,a.d_address\r\n" + 
+				"from bike_김용석_productsale a, bike_김용석_product b\r\n" + 
+				"where a.p_no = b.no\r\n" + 
+				"and d_no = '"+d_no+"'";
 		try {
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(query);
@@ -176,8 +180,11 @@ public class ProductsaleDao {
 				String price = rs.getString("price");
 				String d_email = rs.getString("d_email");
 				String d_address = rs.getString("d_address");
+				String product_photo = rs.getString("product_photo");
+				String product_name = rs.getString("product_name");
+				String d_date = rs.getString("d_date");
 				
-				dto = new ProductsaleDto(d_no, p_no, d_state, c_id, d_email, d_address, purchase_way, price, purchase_date);
+				dto = new ProductsaleDto(d_no, p_no, d_state, c_id, d_email, d_address, purchase_way, price, purchase_date,product_photo,product_name,d_date);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -243,6 +250,30 @@ public class ProductsaleDao {
 		
 		
 		return dto;
+	}
+
+
+	public int getUpdateState(ProductsaleDto dto) {
+		int result = 0;
+		String query="update bike_김용석_productsale\r\n" + 
+				"    set d_state = '"+dto.getD_state()+"',\r\n" + 
+				"        d_date = to_date('"+dto.getD_date()+"','yyyy-mm-dd hh24:mi:ss')\r\n" + 
+				"where d_no = '"+dto.getD_no()+"'";
+		
+		
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			result=ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println(query);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		
+		return result;
 	}
 	
 	

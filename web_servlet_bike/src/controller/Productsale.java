@@ -14,6 +14,7 @@ import command.product.ProductView;
 import command.productsale.ProductPurchase;
 import command.productsale.ProductsaleAdmin;
 import command.productsale.ProductsaleList;
+import command.productsale.ProductsaleUpdate;
 import command.productsale.ProductsaleView;
 
 /**
@@ -65,6 +66,10 @@ public class Productsale extends HttpServlet {
 			ProductsaleView product = new ProductsaleView();
 			product.execute(request);
 			viewPage = "Productsale/Productsale_productsaleview.jsp";
+		}else if(gubun.equals("updatestate")) {
+			ProductsaleUpdate product = new ProductsaleUpdate();
+			product.execute(request);
+			viewPage = "common_alert.jsp";
 		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher(viewPage);

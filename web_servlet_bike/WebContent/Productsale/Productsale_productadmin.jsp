@@ -47,7 +47,7 @@
 			<input type="hidden" name="t_nowPage">
 			<input type="hidden" name="t_gubun">
 			<div class="record_group record_group_left">
-				<p><i class="fa-solid fa-bell"></i> 총게시글<span>${t_totalCount}</span>건</p>
+				<p><i class="fa-solid fa-bell"></i> 총 판매내역<span>${t_totalCount}</span>건</p>
 			</div>			
 				<select name="t_count" class="sel_box" onchange="goSearch()">
 					<option value="5" <c:if test="${t_count eq '5'}">selected</c:if> >5</option>
@@ -74,11 +74,12 @@
 			<table class="boardList">
 				<colgroup>
 					<col width="5%">
-					<col width="35%">
+					<col width="15%">
+					<col width="15%">
+					<col width="25%">
 					<col width="10%">
 					<col width="10%">
-					<col width="10%">
-					<col width="30%">
+					<col width="20%">
 					
 				</colgroup>
 				<thead>
@@ -87,6 +88,7 @@
 							<th>NO</th>
 							<th>주문번호</th>
 							<th>제품번호</th>
+							<th>제품명</th>
 							<th>구매자</th>
 							<th>배송상태</th>
 							<th>구매 날짜</th>
@@ -100,7 +102,8 @@
 						<td>${number}</td>
 							<c:set var="number" value="${number-1}"></c:set>
 						<td><a href="javascript:goView('${dto.getD_no()}')">${dto.getD_no()}</a></td>
-						<td class="t_left">${dto.getP_no()}</td>
+						<td><a href="javascript:goView('${dto.getD_no()}')">${dto.getP_no()}</a></td>
+						<td class="t_left">${dto.getProduct_name()}</td>
 						<td>${dto.getC_id()}</td>
 						<td>${dto.getD_state()}</td>
 						<td>${dto.getPurchase_date()}</td>

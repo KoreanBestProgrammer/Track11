@@ -27,8 +27,8 @@
 			
 <style>
 	.img-view{
-		width:100px;
-		height:100px;
+		width:300px;
+		height:300px;
 	}
 	input:focus {outline: none;}
 </style>
@@ -47,33 +47,33 @@
 					<tr>
 						<th>제품이름</th>
 						<td><input type="text" style=border:none readonly value="${t_dto.getProduct_name()}"></td>
-						<td >
+						<td colspan="2">
 							<img src="attach/product/${t_dto.getProduct_photo()}" class="img-view">
 						</td>
 					</tr>	
 					<tr>
 						<th>제품번호</th>
-						<td colspan="2"><input type="text" name="t_no" style=border:none readonly value="${t_dto.getNo()}"></td>
+						<td colspan="3"><input type="text" name="t_no" style=border:none readonly value="${t_dto.getNo()}"></td>
 					</tr>	
 					<tr>
 						<th>구매자</th>
-						<td colspan="2"><input type="text" name="t_customerid" style=border:none readonly value="${sessionName}"></td>
+						<td colspan="3"><input type="text" name="t_customerid" style=border:none readonly value="${sessionName}"></td>
 					</tr>	
 					<tr>
-						<th>구매자 이메일 주소</th>
-						<td colspan="2"><input type="text" name="t_email" value=""></td>
+						<th>이메일 주소</th>
+						<td colspan="3"><input type="text" name="t_email" value=""></td>
 					</tr>	
 					<tr>
 						<th>배송지 정보</th>
-						<td colspan="2"><input type="text" name="t_address" value=""></td>
+						<td colspan="3"><input type="text" name="t_address" value=""></td>
 					</tr>	
 					<tr>
 						<th>가격</th>
-						<td colspan="2"><input type="text" name="t_price" style=border:none readonly value="${t_dto.getProduct_price()}"></td>
+						<td colspan="3"><input type="text" name="t_price" style=border:none readonly value="${t_dto.getProduct_price()}"></td>
 					</tr>	
 					<tr>
 						<th>지불방법</th>
-						<td colspan="2">
+						<td colspan="3">
 							<input type="radio" value="카드" name="t_purchaseway" class="middleCheck" /> 카드&nbsp;&nbsp;        
 					  		<input type="radio" value="무통장입금" name="t_purchaseway" class="middleCheck" /> 무통장입금&nbsp;&nbsp;신한 110468438898 예금주:김용석
 					  	</td>
