@@ -110,8 +110,8 @@
 						<th>주문상태</th>
 						<td><input type="text" name="t_d_state" value="${t_dto.getD_state()}" style="border:none"></td>
 						<td colspan="2"><input type="button" onclick="goChange()" value="상태변경">
-						<select name="t_select_state" class="sel_box">
-							<option value="입금확인" <c:if test="${t_dto.getD_state() eq '입금확인'}">selected</c:if> >입금확인</option>
+						<select name="t_select_state" class="sel_box" style="width:100px;height:20px;">
+							<option value="입금확인중" <c:if test="${t_dto.getD_state() eq '입금확인중'}">selected</c:if> >입금확인중</option>
 							<option value="배송준비중" <c:if test="${t_dto.getD_state() eq '배송준비중'}">selected</c:if> >배송준비중</option>
 							<option value="배송중" <c:if test="${t_dto.getD_state() eq '배송중'}">selected</c:if> >배송중</option>
 							<option value="배송완료" <c:if test="${t_dto.getD_state() eq '배송완료'}">selected</c:if> >배송완료</option>

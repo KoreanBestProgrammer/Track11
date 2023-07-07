@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import command.member.MemberMyinfo;
 import command.product.ProductView;
+import command.productsale.ProductMyorder;
 import command.productsale.ProductPurchase;
 import command.productsale.ProductsaleAdmin;
 import command.productsale.ProductsaleList;
@@ -70,6 +71,10 @@ public class Productsale extends HttpServlet {
 			ProductsaleUpdate product = new ProductsaleUpdate();
 			product.execute(request);
 			viewPage = "common_alert.jsp";
+		}else if(gubun.equals("productmyorderview")) {
+			ProductMyorder product = new ProductMyorder();
+			product.execute(request);
+			viewPage = "Productsale/Productsale_myorderView.jsp";
 		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher(viewPage);

@@ -35,6 +35,11 @@
 				view.submit();
 			}
 		</script>
+		<style>
+			.select_box_right{
+				width:500px;
+			}
+		</style>
 		<div id="b_right">
 			<p class="n_title">
 				판매내역
@@ -49,17 +54,19 @@
 			<div class="record_group record_group_left">
 				<p><i class="fa-solid fa-bell"></i> 총 판매내역<span>${t_totalCount}</span>건</p>
 			</div>			
-				<select name="t_count" class="sel_box" onchange="goSearch()">
-					<option value="5" <c:if test="${t_count eq '5'}">selected</c:if> >5</option>
-					<option value="10" <c:if test="${t_count eq '10'}">selected</c:if> >10</option>
-					<option value="15" <c:if test="${t_count eq '15'}">selected</c:if> >15</option>
-				</select>
-			<p class="select_box select_box_right">
 				
-				<select name="t_select_state" class="sel_box">
+			<p class="select_box select_box_right">
+				<select name="t_count" class="sel_box" onchange="goSearch()">
+					<option value="5" <c:if test="${t_count eq '5'}">selected</c:if> >5건</option>
+					<option value="10" <c:if test="${t_count eq '10'}">selected</c:if> >10건</option>
+					<option value="15" <c:if test="${t_count eq '15'}">selected</c:if> >15건</option>
+				</select>
+				<select name="t_select_state" class="sel_box" style="width:100px;height:20px;">
 					<option value="" <c:if test="${t_state eq ''}">selected</c:if> >배송상태</option>
-					<option value="배송중" <c:if test="${t_state eq '배송중'}">selected</c:if> >배송중</option>
 					<option value="입금확인중" <c:if test="${t_state eq '입금확인중'}">selected</c:if> >입금확인중</option>
+					<option value="배송준비중" <c:if test="${t_state eq '배송준비중'}">selected</c:if> >배송준비중</option>
+					<option value="배송중" <c:if test="${t_state eq '배송중'}">selected</c:if> >배송중</option>
+					<option value="배송완료" <c:if test="${t_state eq '배송완료'}">selected</c:if> >배송완료</option>
 				</select>
 				
 				<select name="t_select" class="sel_box">

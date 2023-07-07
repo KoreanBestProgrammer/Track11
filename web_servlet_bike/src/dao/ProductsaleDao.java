@@ -158,7 +158,29 @@ public class ProductsaleDao {
 		
 		return count;
 	}
-
+	
+	public int getTotalCount(String select, String search) {
+		int count = 0;
+		String query = "select count(*) as count from bike_김용석_productsale a, bike_김용석_product b\r\n" + 
+				"where a.p_no = b.no\r\n" + 
+				"and "+select+" like '%"+search+"%'" ;
+		
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt("count");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println(query);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		return count;
+	}
 
 	public ProductsaleDto getProductsaleView(String d_no) {
 		ProductsaleDto dto = null;
@@ -274,6 +296,136 @@ public class ProductsaleDao {
 		
 		
 		return result;
+	}
+
+
+	public ArrayList<ProductsaleDto> getOrderList(int start, int end, String select, String search, String c_id) {
+		ArrayList<ProductsaleDto> arr = new ArrayList<>();
+		String query="select * from\r\n" + 
+				"(select rownum as rnum, tbl.* from\r\n" + 
+				"(select a.d_no,a.p_no,b.product_name,b.product_photo,to_char(a.purchase_date,'yyyy-mm-dd')as purchase_date,a.c_id\r\n" + 
+				"from bike_김용석_productsale a, bike_김용석_product b\r\n" + 
+				"where a.p_no = b.no\r\n" + 
+				"and "+select+" like '%"+search+"%'\r\n" + 
+				"and a.c_id = '"+c_id+"'\r\n" + 
+				"order by a.d_no desc)tbl)\r\n" + 
+				"where rnum >= "+start+" and rnum <= "+end+"";
+		
+		
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				String d_no = rs.getString("d_no");
+				String p_no = rs.getString("p_no");
+				String product_name = rs.getString("product_name");
+				String product_photo = rs.getString("product_photo");
+				String purchase_date = rs.getString("purchase_date");
+				
+				ProductsaleDto dto = new ProductsaleDto(d_no, p_no, c_id, purchase_date, product_photo, product_name);
+				arr.add(dto);		
+				
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println(query);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		return arr;
+	}
+
+
+	public ProductsaleDto getMyorderView(String d_no) {
+		ProductsaleDto dto = null;
+		String query = "select a.p_no,a.d_no,a.d_state,a.c_id,a.d_email,a.d_address,\r\n" + 
+				"to_char(a.purchase_date,'yyyy-mm-dd hh24:mi:ss')as purchase_date,a.purchase_way,\r\n" + 
+				"a.price,to_char(a.d_date,'yyyy-mm-dd hh24:mi:ss')as d_date,b.product_photo,b.product_name \r\n" + 
+				"from bike_김용석_productsale a, bike_김용석_product b\r\n" + 
+				"where a.p_no = b.no\r\n" + 
+				"and a.d_no = '"+d_no+"'";
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				String p_no = rs.getString("p_no");
+				String d_state = rs.getString("d_state");
+				String c_id = rs.getString("c_id");
+				String d_email = rs.getString("d_email");
+				String d_address = rs.getString("d_address");
+				String purchase_date = rs.getString("purchase_date");
+				String purchase_way = rs.getString("purchase_way");
+				String price = rs.getString("price");
+				String d_date = rs.getString("d_date");
+				String product_photo = rs.getString("product_photo");
+				String product_name = rs.getString("product_name");
+				
+				dto = new ProductsaleDto(d_no, p_no, d_state, c_id, d_email, d_address, purchase_way, price, purchase_date, product_photo, product_name, d_date);
+				
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println(query);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		return dto;
+	}
+
+
+	public String getMyorderPreView(String d_no) {
+		String preD_no = "";
+		String query = "select a.d_no from\r\n" + 
+				"(select max(d_no) as d_no from bike_김용석_productsale\r\n" + 
+				"where d_no < '"+d_no+"') a , bike_김용석_productsale b\r\n" + 
+				"where a.d_no = b.d_no";
+		
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				preD_no = rs.getString("d_no");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println(query);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		return preD_no;
+	}
+
+
+	public String getMyorderNextView(String d_no) {
+		String nextD_no = "";
+		String query = "select a.d_no from\r\n" + 
+				"(select min(d_no)as d_no from bike_김용석_productsale\r\n" + 
+				"where d_no > '"+d_no+"') a, bike_김용석_productsale b\r\n" + 
+				"where a.d_no = b.d_no";
+		
+
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				nextD_no = rs.getString("d_no");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println(query);
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		
+		return nextD_no;
 	}
 	
 	

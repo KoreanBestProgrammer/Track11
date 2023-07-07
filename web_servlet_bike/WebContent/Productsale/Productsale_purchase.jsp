@@ -2,7 +2,10 @@
     pageEncoding="UTF-8"%>
     <%@ include file="../common_header.jsp" %>
 <div id="b_left">
-			<%@ include file="../common_menu.jsp" %>
+			<P>PRODUCT</P>
+			<ul>
+			   	<li><a href="Product"><span class="fnt"><i class="fas fa-apple-alt"></i></span>Product</a></li>
+		   </ul>
 		</div>
 		
 		<div id="b_right">
@@ -38,8 +41,8 @@
 			<input type="hidden" name="t_state" value="입금확인중">
 			<table class="boardForm">
 				<colgroup>
-					<col width="15%">
-					<col width="55%">
+					<col width="25%">
+					<col width="45%">
 					<col width="10%">
 					<col width="20%">
 				</colgroup>
@@ -57,15 +60,15 @@
 					</tr>	
 					<tr>
 						<th>구매자</th>
-						<td colspan="3"><input type="text" name="t_customerid" style=border:none readonly value="${sessionName}"></td>
+						<td colspan="3"><input type="text" name="t_customerid" style=border:none readonly value="${sessionId}"></td>
 					</tr>	
 					<tr>
 						<th>이메일 주소</th>
-						<td colspan="3"><input type="text" name="t_email" value=""></td>
+						<td colspan="3"><input type="text" name="t_email" value="" size="50"></td>
 					</tr>	
 					<tr>
-						<th>배송지 정보</th>
-						<td colspan="3"><input type="text" name="t_address" value=""></td>
+						<th>배송지</th>
+						<td colspan="3"><input type="text" name="t_address" value="" size="50"></td>
 					</tr>	
 					<tr>
 						<th>가격</th>

@@ -172,6 +172,7 @@ public class ProductDao {
 		String query = "update bike_김용석_product\r\n" + 
 				"    SET hit = hit+1\r\n" + 
 				"where no = '"+no+"'";
+		
 		try {
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(query);

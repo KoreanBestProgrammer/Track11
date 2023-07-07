@@ -41,6 +41,11 @@
 				product.submit();
 			}
 		</script>
+		<style>
+			.select_box_right{
+				width:500px;
+			}
+		</style>
 		<div id="b_right">
 			<p class="n_title">
 				PRODUCT
@@ -54,23 +59,25 @@
 			</form>	
 			<form name="list">	
 			<input type="hidden" name="t_nowPage">
-				<select name="t_productLevel" class="sel_box">
-					<option value="" <c:if test="${t_productLevel eq ''}">selected</c:if>>제품우선순위</option>
-					<option value="1" <c:if test="${t_productLevel eq '1'}">selected</c:if>>1</option>
-					<option value="2" <c:if test="${t_productLevel eq '2'}">selected</c:if>>2</option>
-					<option value="3" <c:if test="${t_productLevel eq '3'}">selected</c:if>>3</option>
-				</select>
+			
 			<p class="select_box select_box_right">
-				
+			<c:if test="${sessionLevel eq 'admin'}">
+				<select name="t_productLevel" class="sel_box" style="width:105px;height:20px;">
+					<option value="" <c:if test="${t_productLevel eq ''}">selected</c:if>>제품우선순위</option>
+					<option value="1" <c:if test="${t_productLevel eq '1'}">selected</c:if>>1순위</option>
+					<option value="2" <c:if test="${t_productLevel eq '2'}">selected</c:if>>2순위</option>
+					<option value="3" <c:if test="${t_productLevel eq '3'}">selected</c:if>>3순위</option>
+				</select>
+			</c:if>	
+				<select name="t_displayCount" class="sel_box" onchange="goSearch()">
+					<option value="5" <c:if test="${t_count eq '5'}">selected</c:if>>5건</option>
+					<option value="10" <c:if test="${t_count eq '10'}">selected</c:if>>10건</option>
+					<option value="15" <c:if test="${t_count eq '15'}">selected</c:if>>15건</option>
+					<option value="20" <c:if test="${t_count eq '20'}">selected</c:if>>20건</option>
+				</select>
 				<select name="t_select" class="sel_box">
 					<option value="no" <c:if test="${t_select eq 'no'}">selected</c:if>>제품번호</option>
 					<option value="product_name" <c:if test="${t_select eq 'product_name'}">selected</c:if>>제품명</option>
-				</select>
-				<select name="t_displayCount" class="sel_box" onchange="goSearch()">
-					<option value="5" <c:if test="${t_count eq '5'}">selected</c:if>>5</option>
-					<option value="10" <c:if test="${t_count eq '10'}">selected</c:if>>10</option>
-					<option value="15" <c:if test="${t_count eq '15'}">selected</c:if>>15</option>
-					<option value="20" <c:if test="${t_count eq '20'}">selected</c:if>>20</option>
 				</select>
 				<input type="text" name="t_search" value="${t_search}" class="sel_text">
 			
@@ -93,7 +100,7 @@
 						<th>제품번호</th>
 						<th>사진</th>
 						<th>제품명</th>
-						<th>가격</th>
+						<th>등록일</th>
 						<th>조회수</th>
 					</tr>
 				</thead>

@@ -103,7 +103,7 @@
 			}
 		</style>				
 					<tr>
-						<th>Attach</th>
+						<th>제품사진</th>
 						<td colspan="3">
 							<img src="attach/product/${t_dto.getProduct_photo()}" class="view-img">
 						</td>
@@ -114,11 +114,12 @@
 						<th>등록일</th>
 						<td>${t_dto.getReg_date()}</td>
 					</tr>
+				<c:if test="${sessionLevel eq 'admin'}">
 					<tr>
 						<th>수정일</th>
 						<td colspan="3">${t_dto.getUpdate_date()}</td>
 					</tr>		
-
+				</c:if>
 				</tbody>
 			</table>
 			<div class="preNext">
