@@ -54,7 +54,7 @@ public class NoticeDao {
 				"values('"+dto.getNo()+"','"+dto.getTitle()+"','"+dto.getContent()+"','"+dto.getAttach()+"','"+dto.getReg_id()+"',\r\n" + 
 				"        to_date('"+dto.getReg_date()+"','yyyy-mm-dd hh:mi:ss')\r\n" + 
 				")";
-		
+		System.out.println(query);
 		try {
 			con = DBConnection.getConnection();
 			ps = con.prepareStatement(query);

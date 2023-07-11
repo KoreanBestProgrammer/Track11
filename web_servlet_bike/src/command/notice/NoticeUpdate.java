@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+
 
 
 
@@ -63,7 +63,7 @@ public class NoticeUpdate implements CommonExecute {
 		
 		//새로 첨부할 때
 		if(!attach.equals("")) {
-			if(!oriAttach.equals("") && delAttach) {
+			if(!oriAttach.equals("") && delAttach) { //삭제한거 또 삭제하는거니깐 이 과정을 거져줌
 				File file = new File(CommonUtil.getFile_dir("notice"), oriAttach);
 				boolean tf = file.delete();
 				if(!tf) System.out.println("기존 첨부파일 삭제 오류");
