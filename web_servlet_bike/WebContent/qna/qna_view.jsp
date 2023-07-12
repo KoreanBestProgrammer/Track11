@@ -30,7 +30,7 @@
 	}
 	function goAnswerDelete(no){
 		if(confirm("정말 삭제하시겠습니까?")){
-			qna.t_gubun.value="qnaanswerdelelte";
+			qna.t_gubun.value="qnaanswerdelete";
 			qna.t_no.value=no;
 			qna.method="post";
 			qna.action="Qna";
@@ -48,13 +48,14 @@
 				alert('통신실패!!!!!');
 			},
 			success : function(data){
+				alert("수정하시겠습니까?");
 				var result = $.trim(data); // $.trim() : 여백을 지움
 				var len = result.length;
 				var answer_update_date = result.substring(0,19);
 				var answer = result.substring(19,len);
 				change.t_answer_update_date.value = answer_update_date;
 				change.t_answer.value = answer;
-				
+				alert("수정성공!");
 				
 			//	if(result == "사용가능"){
 			//	join.t_idCheckValue.value = join.t_id.value;
@@ -67,6 +68,12 @@
 		
 	}
 </script>		
+<style>
+	.img-view{
+		width:300px;
+		height:300px;
+	}
+</style>
 		<div id="b_right">
 			<p class="n_title">
 				QNA
@@ -97,16 +104,20 @@
 							<textarea class="textArea_H250_noBorder" disabled style="resize:none;">${t_dto.getContent()}</textarea>
 						</td>
 					</tr>
-	<style>
-		.img-view{
-			width:300px;
-			height:300px;
-		}
-	</style>					
+						
 				<c:if test="${not empty t_dto.getAttach()}">
 					<tr>
-						<th>첨부사진</th>
-						<td colspan="3"><img src="attach/qna/${t_dto.getAttach()}" class="img-view"></td>
+						<th>첨부</th>
+						<td colspan="3">
+						<c:choose>
+							<c:when test="${not empty t_extension}">
+								<img src="attach/qna/${t_dto.getAttach()}" class="img-view">
+							</c:when>
+							<c:otherwise>
+								${t_dto.getAttach()}
+							</c:otherwise>
+						</c:choose>	
+						</td>
 					</tr>	
 				</c:if>		
 					<tr>
@@ -115,10 +126,12 @@
 						<th>등록일</th>
 						<td colspan="3">${t_dto.getReg_date()}</td>
 					</tr>	
+				<c:if test="${not empty t_dto.getUpdate_date()}">	
 					<tr>
 						<th>질문수정일</th>
 						<td colspan="3">${t_dto.getUpdate_date()}</td>
 					</tr>	
+				</c:if>	
 			<c:choose>		
 				<c:when test="${not empty t_dto.getAnswer()}">	
 					<tr>
@@ -133,8 +146,6 @@
 							<textarea class="textArea_H250_noBorder" name="t_answer" style="resize:none;">${t_dto.getAnswer()}</textarea>
 						</td>	
 					</tr>
-			<c:choose>	
-				<c:when test="${sessionLevel eq 'admin'}">
 					<tr>
 						<th>답변일</th>
 						<td>
@@ -146,16 +157,6 @@
 						</td>
 					</tr>
 				</c:when>	
-				<c:otherwise>
-					<tr>
-						<th>답변일</th>
-						<td colspan="3">
-							${t_dto.getAnswer_date()}
-						</td>
-					</tr>
-				</c:otherwise>
-			</c:choose>		
-				</c:when>
 				<c:otherwise>
 				<tr>
 					<th>관리자 답변</th>																											
@@ -180,9 +181,9 @@
 					<a href="javascript:goDelete('${t_dto.getNo()}')" class="butt">질문삭제</a>
 				</c:if>
 				<c:if test="${sessionLevel eq 'admin' && not empty t_dto.getAnswer()}">
-					<a href="javascript:goAswerDelete('${t_dto.getNo()}')" class="butt">답변삭제</a>
+					<a href="javascript:goAnswerDelete('${t_dto.getNo()}')" class="butt">답변삭제</a>
 					<a href="javascript:goAnswerUpdate()" class="butt">답변수정</a>
-					<a href="javascript:goAnswerDelete()" class="butt">질문삭제</a>
+					<a href="javascript:goDelete('${t_dto.getNo()}')" class="butt">질문삭제</a>
 				</c:if>
 				
 				<a href="Qna" class="butt">List</a>

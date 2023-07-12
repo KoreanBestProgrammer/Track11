@@ -16,6 +16,16 @@ public class Qnaview implements CommonExecute {
 		
 		QnaDto dto = dao.getQnaView(no);
 		
+		if(dto.getAttach() != null) {
+			int maxNum = dto.getAttach().length();
+			int num = dto.getAttach().indexOf(".");
+			
+			String extension = dto.getAttach().substring(num+1, maxNum);
+			
+			if(extension.equals("jpg") || extension.equals("gif") || extension.equals("png")) {
+				request.setAttribute("t_extension", extension);
+			}
+		}
 		request.setAttribute("t_dto", dto);
 		
 		

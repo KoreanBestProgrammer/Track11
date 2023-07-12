@@ -37,7 +37,13 @@
 		qna.action="Qna";
 		qna.submit();
 	}
-</script>		
+</script>	
+
+<style>	
+	.complet {background:#8893ab; color:#fff;padding:5px 8px;}
+	.waiting {background:#0489B1; color:#fff;padding:5px 8px;}
+</style>
+
 		<div id="b_right">
 			<p class="n_title">
 				QNA
@@ -51,15 +57,14 @@
 			</form>
 			<form name="search">
 				<input type="hidden" name="t_nowPage">
-				<p class="counter">  
-		 			<input type="radio" value="5" name="t_count" class="middleCheck" <c:if test="${t_count eq '5'}">checked</c:if>/> 5건        
+				
+				<p class="select_box select_box_right" style="width:500px;">
+					<input type="radio" value="5" name="t_count" class="middleCheck" <c:if test="${t_count eq '5'}">checked</c:if>/> 5건        
 			    	<input type="radio" value="10" name="t_count" class="middleCheck" <c:if test="${t_count eq '10'}">checked</c:if>/> 10건
 			    	<input type="radio" value="15" name="t_count" class="middleCheck" <c:if test="${t_count eq '15'}">checked</c:if>/> 15건
-				</p>
-				<p class="select_box select_box_right">
 					<select name="t_select" class="sel_box">
-						<option value="title" <c:if test="${t_select eq 'title'}">selected</c:if> >Title</option>
-						<option value="reg_id" <c:if test="${t_select eq 'reg_id'}">selected</c:if> >Id</option>
+						<option value="title" <c:if test="${t_select eq 'title'}">selected</c:if> >제목</option>
+						<option value="reg_id" <c:if test="${t_select eq 'reg_id'}">selected</c:if> >ID</option>
 					</select>
 					<input type="text" name="t_search" value="${t_search}" class="sel_text">
 	
@@ -69,8 +74,7 @@
 			<table class="boardList">
 				<colgroup>
 					<col width="10%">			
-					<col width="10%">
-					<col width="30%">
+					<col width="*">
 					<col width="10%">
 					<col width="10%">
 					<col width="20%">
@@ -79,7 +83,6 @@
 				<thead>
 					<tr>
 						<th>순차</th>
-						<th>No</th>
 						<th>제목</th>
 						<th>첨부파일</th>
 						<th>질문자 Id</th>
@@ -93,8 +96,18 @@
 					<tr>
 						<td>${number}</td>
 						<c:set var="number" value="${number-1}"></c:set>
-						<td><a href="javascript:goView('${dto.getNo()}')">${dto.getNo()}</a></td>
-						<td>${dto.getTitle()}</td>
+						<td>
+						<a href="javascript:goView('${dto.getNo()}')">
+						<c:choose>
+							<c:when test="${fn:length(dto.getTitle()) > 20}">
+								${fn:substring(dto.getTitle(),0,20)}.....
+							</c:when>
+							<c:otherwise>
+								${dto.getTitle()}
+							</c:otherwise>	
+						</c:choose>
+						</a>
+						</td>
 						<td>
 							<c:if test="${not empty dto.getAttach()}">
 								<img src="images/clip.png">
@@ -105,10 +118,10 @@
 						<td>
 							<c:choose>
 							<c:when test="${not empty dto.getAnswer()}">
-								답변완료							
+								<span class="complet">답변완료</span>					
 							</c:when>
 							<c:otherwise>
-								답변대기
+								<span class="waiting">답변대기</span>
 							</c:otherwise>
 							</c:choose>
 						</td>

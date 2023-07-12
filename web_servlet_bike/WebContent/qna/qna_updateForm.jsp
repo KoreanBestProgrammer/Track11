@@ -16,9 +16,8 @@
 			var pathFileName = fileName.lastIndexOf(".")+1;    //확장자 제외한 경로+파일명
 			var extension = (fileName.substr(pathFileName)).toLowerCase();	//확장자명
 			//파일명.확장자
-//			if(extension != "jpg" && extension != "gif" && extension != "png"){
-			if(extension != "pdf" && extension != "hwp" && extension != "jpg"){
-				alert(extension +" 형식 파일은 업로드 안됩니다. 한글, PDF, jpg 파일만 가능!");
+			if(extension != "jpg" && extension != "pdf"){
+				alert(extension +" 형식 파일은 업로드 안됩니다. PDF,JPG파일만 가능!");
 				return;
 			}		
 		}
@@ -69,12 +68,12 @@
 				</colgroup>
 				<tbody>
 					<tr>
-						<th>Title</th>
-						<td colspan="3"><input type="text" name="t_title" class="input600"></td>
+						<th>제목</th>
+						<td colspan="3"><input type="text" name="t_title" value="${t_dto.getTitle()}" class="input600"></td>
 					</tr>	
 					<tr>
-						<th>Content</th>
-						<td colspan="3"><textarea class="textArea_H250" name="t_content"></textarea></td>
+						<th>내용</th>
+						<td colspan="3"><textarea class="textArea_H250" name="t_content">${t_dto.getContent()}</textarea></td>
 					</tr>
 	<style>
 		.img-view{
@@ -83,13 +82,20 @@
 		}
 	</style>						
 					<tr>
-						<th>Attach</th>
+						<th>첨부파일</th>
 						<td colspan="3">
-							<c:if test="${not empty t_dto.getAttach()}">
-								${t_dto.getAttach()}<img src="attach/qna/${t_dto.getAttach()}" class="img-view">
+						<c:if test="${not empty t_dto.getAttach()}">
+							<c:choose>
+								<c:when test="${not empty t_extension}">
+									<img src="attach/qna/${t_dto.getAttach()}" class="img-view">
+								</c:when>
+								<c:otherwise>
+									${t_dto.getAttach()}
+								</c:otherwise>
+							</c:choose>	
 								<input type="hidden" name="t_ori_attach" value="${t_dto.getAttach()}">
 								 삭제<input type="checkbox" name="t_deleteCheckAttach" value="${t_dto.getAttach()}"><br>
-							</c:if>	
+						</c:if>	
 							<input type="file" name="t_attach" class="input600"> 
 						 </td>
 					</tr>	

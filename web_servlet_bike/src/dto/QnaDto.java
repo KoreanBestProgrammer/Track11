@@ -7,18 +7,12 @@ public class QnaDto {
 	
 	
 	
-	//질문 삭제
-	public QnaDto(String no, String answer) {
-		super();
-		this.no = no;
-		this.answer = answer;
-		
-	}
+	
 
 
 
 
-	//답변수정
+	//답변수정,답변삭제
 	public QnaDto(String no, String answer, String admin_update_date) {
 		super();
 		this.no = no;

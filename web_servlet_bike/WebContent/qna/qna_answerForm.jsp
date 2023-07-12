@@ -37,7 +37,7 @@
 					<tr>
 						<th>Content</th>
 						<td colspan="3">
-							<textarea class="textArea_H250_noBorder" disabled style="resize:none;">${t_dto.getContent()}</textarea>
+							<textarea class="textArea_H250_noBorder" disabled>${t_dto.getContent()}</textarea>
 						</td>
 					</tr>
 	<style>
@@ -71,7 +71,7 @@
 					<tr>				
 						<th>관리자 답변</th>
 						<td colspan="3">
-							<textarea class="textArea_H250_noBorder" name="t_answer" ></textarea>
+							<textarea name="t_answer" style="width:600px;height:300px;"></textarea>
 						</td>	
 					</tr>	
 				</tbody>

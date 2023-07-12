@@ -17,9 +17,8 @@
 			var pathFileName = fileName.lastIndexOf(".")+1;    //확장자 제외한 경로+파일명
 			var extension = (fileName.substr(pathFileName)).toLowerCase();	//확장자명
 			//파일명.확장자
-//			if(extension != "jpg" && extension != "gif" && extension != "png"){
-			if(extension != "pdf"){
-				alert(extension +" 형식 파일은 업로드 안됩니다. PDF파일만 가능!");
+			if(extension != "jpg" && extension != "pdf"){
+				alert(extension +" 형식 파일은 업로드 안됩니다. PDF,JPG파일만 가능!");
 				return;
 			}		
 		}

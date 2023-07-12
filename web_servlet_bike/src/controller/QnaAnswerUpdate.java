@@ -41,6 +41,10 @@ public class QnaAnswerUpdate extends HttpServlet {
 		String answer = request.getParameter("t_answer");
 		String admin_update_date = CommonUtil.getTodayTime();
 		
+		if(answer.equals("")) {
+			admin_update_date = "";
+		}
+		
 		QnaDto dto = new QnaDto(no, answer, admin_update_date);
 		
 		int result = dao.getAnswerUpdate(dto);

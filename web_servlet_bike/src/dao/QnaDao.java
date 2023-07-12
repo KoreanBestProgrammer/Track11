@@ -97,7 +97,7 @@ public class QnaDao {
 		ArrayList<QnaDto> arr = new ArrayList<>();
 		String query = "select * from\r\n" + 
 				"(select rownum as rnum, tbl.* from\r\n" + 
-				"(select no,title,reg_id,answer,to_char(reg_date,'yyyy-mm-dd hh24:mi:ss')as reg_date,attach\r\n" + 
+				"(select no,title,reg_id,answer,to_char(reg_date,'yyyy-mm-dd')as reg_date,attach\r\n" + 
 				"from bike_김용석_qna\r\n" + 
 				"where "+select+" like '%"+search+"%'\r\n" + 
 				"order by no desc)tbl)\r\n" + 
@@ -266,8 +266,20 @@ public class QnaDao {
 
 	public int getAnswerDelete(QnaDto dto) {
 		int result = 0;
-		String query="";
-			
+		String query="update bike_김용석_qna\r\n" + 
+				"     set answer = '"+dto.getAnswer()+"',\r\n" + 
+				"        admin_update_date = to_date('"+dto.getAdmin_update_date()+"','yyyy-mm-dd hh24:mi:ss')\r\n" + 
+				"     where no = '"+dto.getNo()+"'";
+		try {
+			con = DBConnection.getConnection();
+			ps = con.prepareStatement(query);
+			result = ps.executeUpdate();
+		}catch(Exception e) {
+			System.out.println("쿼리오류"+query);
+			e.printStackTrace();
+		}finally {
+			DBConnection.closeDB(con, ps, rs);		
+		}
 		
 		return result;
 	}
