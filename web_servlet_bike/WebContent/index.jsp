@@ -213,7 +213,7 @@
 						<li><a href="Notice">Notice</a></li>
 						<li><a href="News">News</a></li>
 						<li><a href="Qna">Q & A</a></li>
-						<li><a href="">Free Board</a></li>
+						<li><a href="Freeboard">Free Board</a></li>
 						<li><a href="">Etc</a></li>
 					</ul>
 				</div>

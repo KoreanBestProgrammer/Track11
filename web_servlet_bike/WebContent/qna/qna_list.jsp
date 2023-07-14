@@ -2,13 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../common_header.jsp" %>
 
- <c:if test="${empty sessionId}">
- 	<script>
-		alert("회원 외 입장불가!");
-		location.href="Index";
- 	</script>
- </c:if>
-
 	<div id="b_left">
 			<%@ include file="../common_menu.jsp" %>
 		</div>

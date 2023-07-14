@@ -26,6 +26,7 @@ public class Qnaview implements CommonExecute {
 				request.setAttribute("t_extension", extension);
 			}
 		}
+		
 		request.setAttribute("t_dto", dto);
 		
 		
