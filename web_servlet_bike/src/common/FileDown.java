@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.FreeDao;
+
 
 
 /**
@@ -36,12 +38,14 @@ public class FileDown extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		FreeDao dao = new FreeDao();
 		String savePath = request.getParameter("t_fileDir"); // 첨부파일경로
 	 	String fileName = request.getParameter("t_fileName");  // 다운로드 받을 첨부파일명
-
+	 	String no = request.getParameter("t_no");
+	 	
 		savePath = CommonUtil.getFile_dir(savePath); 
 		
-		
+		dao.getFileHit(no);
 	 	
 	    String orgfilename = fileName ;
 	 

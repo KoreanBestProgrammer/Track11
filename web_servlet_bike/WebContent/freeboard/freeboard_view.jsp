@@ -69,17 +69,18 @@
 						<td colspan="3">
 						<c:choose>
 							<c:when test="${not empty t_extension}">
-								<a href="FileDown?t_fileDir=freeboard&t_fileName=${t_dto.getAttach()}">
+								<a href="FileDown?t_fileDir=freeboard&t_fileName=${t_dto.getAttach()}&t_no=${t_dto.getNo()}">
 								<img src = "attach/freeboard/${t_dto.getAttach()}" class="img-view">
 								${t_dto.getAttach()}
 								</a>
 							</c:when>
 							<c:otherwise>
-								<a href="FileDown?t_fileDir=freeboard&t_fileName=${t_dto.getAttach()}">
+								<a href="FileDown?t_fileDir=freeboard&t_fileName=${t_dto.getAttach()}&t_no=${t_dto.getNo()}">
 									${t_dto.getAttach()}
 								</a>
 							</c:otherwise>
 						</c:choose>
+						<br><br><i class="far fa-eye"></i>${t_dto.getFilehit()}
 						</td>
 					</tr>
 				</c:if>			

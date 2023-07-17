@@ -48,9 +48,9 @@ public class FreeDao {
 	public int getFreeSave(FreeDto dto) {
 		int result = 0;
 		String query = "insert into bike_김용석_free\r\n" + 
-					" (no,title,content,attach,reg_id,reg_name,reg_date)\r\n" + 
+					" (no,title,content,attach,reg_id,reg_name,reg_date,open)\r\n" + 
 					" values('"+dto.getNo()+"','"+dto.getTitle()+"','"+dto.getContent()+"','"+dto.getAttach()+"','"+dto.getReg_id()+"','"+dto.getReg_name()+"',\r\n" + 
-					" to_date('"+dto.getReg_date()+"','yyyy-mm-dd hh24:mi:ss'))";
+					" to_date('"+dto.getReg_date()+"','yyyy-mm-dd hh24:mi:ss'),'"+dto.getOpen()+"')";
 		
 
 		try {
@@ -96,7 +96,7 @@ public class FreeDao {
 		ArrayList<FreeDto> arr = new ArrayList<>();
 		String query="select * from\r\n" + 
 				"(select rownum as rnum, tbl.* from\r\n" + 
-				"(select no,title,attach,reg_name,hit,\r\n" + 
+				"(select no,title,attach,reg_name,hit,open,reg_id,\r\n" + 
 				"to_char(reg_date,'yyyy-mm-dd')as reg_date \r\n" + 
 				"from bike_김용석_free\r\n" + 
 				"where "+select+" like '%"+search+"%'\r\n" + 
@@ -114,8 +114,10 @@ public class FreeDao {
 				String reg_name = rs.getString("reg_name");
 				int hit = rs.getInt("hit");
 				String reg_date = rs.getString("reg_date");
+				String open = rs.getString("open");
+				String reg_id = rs.getString("reg_id");
 				
-				FreeDto dto = new FreeDto(no, title, attach, reg_name, reg_date, hit);
+				FreeDto dto = new FreeDto(no, title, attach, reg_name, reg_date, hit, open,reg_id);
 				arr.add(dto);
 			}
 		}catch(Exception e) {
@@ -151,7 +153,7 @@ public class FreeDao {
 
 	public FreeDto getFreeView(String no) {
 		FreeDto dto = null;
-		String query = "select no,title,content,reg_id,reg_name,hit,to_char(reg_date,'yyyy-mm-dd hh24:mi:ss')as reg_date,\r\n" + 
+		String query = "select no,title,content,reg_id,reg_name,hit,open,filehit,to_char(reg_date,'yyyy-mm-dd hh24:mi:ss')as reg_date,\r\n" + 
 					"to_char(update_date,'yyyy-mm-dd hh24:mi:ss')as update_date,attach\r\n" + 
 					"from bike_김용석_free\r\n" + 
 					"where no = '"+no+"'";
@@ -168,8 +170,10 @@ public class FreeDao {
 				int hit = rs.getInt("hit");
 				String reg_date = rs.getString("reg_date");
 				String update_date = rs.getString("update_date");
+				int filehit  = rs.getInt("filehit");
+				String open = rs.getString("open");
 				
-				dto = new FreeDto(no, title, content, attach, reg_id, reg_name, reg_date, update_date, hit);
+				dto = new FreeDto(no, title, content, attach, reg_id, reg_name, reg_date, update_date, hit, filehit, open);
 						
 			}
 		}catch(Exception e) {
@@ -280,6 +284,25 @@ public class FreeDao {
 		}
 		
 		return result;
+	}
+
+
+	public void getFileHit(String no) {
+		String query="update bike_김용석_free\r\n" + 
+				"    set filehit = filehit+1\r\n" + 
+				"   where no = '"+no+"'";
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			int result = ps.executeUpdate();
+			if(result == 0) System.out.println("파일다운로드 조회수 증가 오류");
+		}catch(Exception e) {
+			System.out.println(query);
+			e.printStackTrace();
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
 	}
 	
 	

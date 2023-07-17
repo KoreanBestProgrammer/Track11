@@ -1,8 +1,8 @@
 package dto;
 
 public class FreeDto {
-	private String no,title,content,attach,reg_id,reg_name,reg_date,update_date;
-	private int hit;
+	private String no,title,content,attach,reg_id,reg_name,reg_date,update_date,open;
+	private int hit,filehit;
 	
 	
 	
@@ -23,7 +23,7 @@ public class FreeDto {
 	}
 	//뷰
 	public FreeDto(String no, String title, String content, String attach, String reg_id, String reg_name,
-			String reg_date, String update_date, int hit) {
+			String reg_date, String update_date, int hit, int filehit, String open) {
 		super();
 		this.no = no;
 		this.title = title;
@@ -34,9 +34,11 @@ public class FreeDto {
 		this.reg_date = reg_date;
 		this.update_date = update_date;
 		this.hit = hit;
+		this.filehit = filehit;
+		this.open = open;
 	}
 	//리스트
-	public FreeDto(String no, String title, String attach, String reg_name, String reg_date, int hit) {
+	public FreeDto(String no, String title, String attach, String reg_name, String reg_date, int hit, String open, String reg_id) {
 		super();
 		this.no = no;
 		this.title = title;
@@ -44,10 +46,12 @@ public class FreeDto {
 		this.reg_name = reg_name;
 		this.reg_date = reg_date;
 		this.hit = hit;
+		this.open = open;
+		this.reg_id = reg_id;
 	}
 	//등록
 	public FreeDto(String no, String title, String content, String attach, String reg_id, String reg_name,
-			String reg_date) {
+			String reg_date,String open) {
 		super();
 		this.no = no;
 		this.title = title;
@@ -56,6 +60,7 @@ public class FreeDto {
 		this.reg_id = reg_id;
 		this.reg_name = reg_name;
 		this.reg_date = reg_date;
+		this.open = open;
 	}
 	public String getNo() {
 		return no;
@@ -84,8 +89,12 @@ public class FreeDto {
 	public int getHit() {
 		return hit;
 	}
-	
-	
+	public int getFilehit() {
+		return filehit;
+	}
+	public String getOpen() {
+		return open;
+	}
 	
 	
 }

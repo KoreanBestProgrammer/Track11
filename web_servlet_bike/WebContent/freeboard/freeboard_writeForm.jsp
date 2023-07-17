@@ -142,6 +142,13 @@
 						<th>RegDate</th>
 						<td>${t_today}</td>
 					</tr>	
+					<tr>
+						<th>공개 비공개</th>
+						<td colspan="3">
+							<input type="radio" name="t_open" value="y">공개
+							<input type="radio" name="t_open" value="n">비공개
+						</td>
+					</tr>
 				</tbody>
 			</table>
 			</form>

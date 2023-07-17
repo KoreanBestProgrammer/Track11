@@ -64,10 +64,11 @@
 			<table class="boardList">
 				<colgroup>
 					<col width="5%">
-					<col width="45%">
+					<col width="35%">
 					<col width="10%">
 					<col width="20%">
-					<col width="20%">
+					<col width="15%">
+					<col width="5%">
 					<col width="10%">
 				</colgroup>
 				<thead>
@@ -78,6 +79,7 @@
 						<th>Reg Name</th>
 						<th>Reg Date</th>
 						<th>Hit</th>
+						<th>공개여부</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -86,18 +88,54 @@
 					<tr>
 						<td>${number}</td>
 						<c:set var="number" value="${number-1}"></c:set>
-						<td class="t_left">
-						<a href="javascript:goView('${dto.getNo()}')">
+						
+						
+						<td>
 						<c:choose>
-							<c:when test="${fn:length(dto.getTitle()) > 20}">
-								${fn:substring(dto.getTitle(),0,20)}.....
-							</c:when>	
+							<c:when test="${dto.getOpen() eq 'n'}">
+								<c:choose>
+									<c:when test="${sessionId eq dto.getReg_id() || sessionLevel eq 'admin'}">
+										<a href="javascript:goView('${dto.getNo()}')">
+											<c:choose>
+												<c:when test="${fn:length(dto.getTitle()) > 20}">
+													${fn:substring(dto.getTitle(),0,20)}.....
+												</c:when>	
+												<c:otherwise>
+													${dto.getTitle()}
+												</c:otherwise>
+											</c:choose>
+										</a>
+									</c:when>
+									<c:otherwise>
+										
+											<c:choose>
+												<c:when test="${fn:length(dto.getTitle()) > 20}">
+													${fn:substring(dto.getTitle(),0,20)}.....
+												</c:when>	
+												<c:otherwise>
+													${dto.getTitle()}
+												</c:otherwise>
+											</c:choose>
+										
+									</c:otherwise>
+								</c:choose>
+							</c:when>
 							<c:otherwise>
-								${dto.getTitle()}
+									<a href="javascript:goView('${dto.getNo()}')">
+										<c:choose>
+											<c:when test="${fn:length(dto.getTitle()) > 20}">
+												${fn:substring(dto.getTitle(),0,20)}.....
+											</c:when>	
+											<c:otherwise>
+												${dto.getTitle()}
+											</c:otherwise>
+										</c:choose>
+									</a>
 							</c:otherwise>
 						</c:choose>
-						</a>
 						</td>
+						
+					
 						<td>
 						<c:if test="${not empty dto.getAttach()}">
 							<img src="images/clip.png">
@@ -106,6 +144,16 @@
 						<td>${dto.getReg_name()}</td>
 						<td>${dto.getReg_date()}</td>
 						<td>${dto.getHit()}</td>
+						<td>
+						<c:choose>
+						<c:when test="${dto.getOpen() eq 'y'}">
+							공개글
+						</c:when>
+						<c:otherwise>
+							비공개글
+						</c:otherwise>
+						</c:choose>
+						</td>
 					</tr>	
 				</c:forEach>	
 				</tbody>

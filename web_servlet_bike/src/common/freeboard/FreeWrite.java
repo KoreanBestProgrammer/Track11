@@ -33,8 +33,9 @@ public class FreeWrite implements CommonExecute {
 			String reg_id = (String)session.getAttribute("sessionId");
 			String reg_name = (String)session.getAttribute("sessionName");
 			String reg_date = CommonUtil.getTodayTime();
+			String open = mpr.getParameter("t_open");
 			
-			FreeDto dto = new FreeDto(no, title, content, attach, reg_id, reg_name, reg_date);
+			FreeDto dto = new FreeDto(no, title, content, attach, reg_id, reg_name, reg_date, open);
 			int result = dao.getFreeSave(dto);
 			
 			if(result != 1) {
