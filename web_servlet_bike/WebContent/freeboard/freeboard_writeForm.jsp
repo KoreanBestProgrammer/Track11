@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file = "../common_header.jsp" %>  
+<%@ include file = "../common_header.jsp" %> 
+
+<c:if test="${sessionLevel ne 'admin' && sessionLevel ne 'member'}">
+	<script>
+		alert("회원 외 입장불가!");
+		location.href="Index";
+	</script>
+</c:if>
+
+
+ 
 		<div id="b_left">
 			<%@ include file = "../common_menu.jsp" %>  
 		</div>

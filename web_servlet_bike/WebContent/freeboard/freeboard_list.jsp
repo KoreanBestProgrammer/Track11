@@ -29,7 +29,11 @@
 		free.action="Freeboard";
 		free.submit();
 	}
-</script>		
+</script>	
+<style>	
+	.complet {background:#0489B1; color:#fff;padding:5px 8px;}
+	.waiting {background:#8893ab; color:#fff;padding:5px 8px;}
+</style>	
 		<div id="b_right">
 			<p class="n_title">
 				FREE BOARD
@@ -107,7 +111,6 @@
 										</a>
 									</c:when>
 									<c:otherwise>
-										
 											<c:choose>
 												<c:when test="${fn:length(dto.getTitle()) > 20}">
 													${fn:substring(dto.getTitle(),0,20)}.....
@@ -116,7 +119,6 @@
 													${dto.getTitle()}
 												</c:otherwise>
 											</c:choose>
-										
 									</c:otherwise>
 								</c:choose>
 							</c:when>
@@ -147,10 +149,10 @@
 						<td>
 						<c:choose>
 						<c:when test="${dto.getOpen() eq 'y'}">
-							공개글
+							<span class="complet">공개글</span>
 						</c:when>
 						<c:otherwise>
-							비공개글
+							<span class="waiting">비공개글</span>
 						</c:otherwise>
 						</c:choose>
 						</td>

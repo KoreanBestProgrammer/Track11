@@ -98,40 +98,7 @@
 					</c:if>
 				</tbody>
 			</table>
-			<div class="preNext">
-			<c:if test="${not empty t_preDto}">
-				<a href="javascript:goView('${t_preDto.getNo()}')">
-					<p class="pre"><span><i class="fa-solid fa-circle-arrow-left"></i> 이전글</span> 
-						<span class="preNextTitle">
-									<c:choose>
-										<c:when test="${fn:length(t_preDto.getTitle()) > 10}">
-											${fn:substring(t_preDto.getTitle(),0,10)}.....
-										</c:when>
-										<c:otherwise>
-											${t_preDto.getTitle()}
-										</c:otherwise>	
-									</c:choose>
-						</span>
-					</p>
-				</a>
-			</c:if>
-			<c:if test="${not empty t_nextDto}">
-				<a href="javascript:goView('${t_nextDto.getNo()}')">
-					<p class="next"><span>다음글 <i class="fa-solid fa-circle-right"></i></span>
-						<span class="preNextTitle">
-									<c:choose>
-										<c:when test="${fn:length(t_nextDto.getTitle()) > 10}">
-											${fn:substring(t_nextDto.getTitle(),0,10)}.....
-										</c:when>
-										<c:otherwise>
-											${t_nextDto.getTitle()}
-										</c:otherwise>	
-									</c:choose>
-						</span>
-					</p>
-				</a>
-			</c:if>
-			</div>			
+				
 			<div class="buttonGroup">
 			<c:if test="${sessionId eq t_dto.getReg_id() || sessionLevel eq 'admin'}">
 				<a href="javascript:goDelete('${t_dto.getNo()}')" class="butt">Delete</a>

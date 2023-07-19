@@ -96,11 +96,12 @@ public class FreeDao {
 		ArrayList<FreeDto> arr = new ArrayList<>();
 		String query="select * from\r\n" + 
 				"(select rownum as rnum, tbl.* from\r\n" + 
-				"(select no,title,attach,reg_name,hit,open,reg_id,\r\n" + 
-				"to_char(reg_date,'yyyy-mm-dd')as reg_date \r\n" + 
-				"from bike_김용석_free\r\n" + 
-				"where "+select+" like '%"+search+"%'\r\n" + 
-				"order by no desc)tbl)\r\n" + 
+				"(select a.no,a.title,a.reg_id,a.open,a.attach,b.name,a.hit,\r\n" + 
+				"to_char(a.reg_date,'yyyy-mm-dd')as reg_date \r\n" + 
+				"from bike_김용석_free a, bike_김용석_member b\r\n" + 
+				"where a.reg_id = b.id\r\n" + 
+				"and "+select+" like '%"+search+"%'\r\n" + 
+				"order by a.reg_date desc)tbl)\r\n" + 
 				"where rnum >= "+start+" and rnum <= "+end+"";
 		
 		try {
@@ -111,13 +112,13 @@ public class FreeDao {
 				String no = rs.getString("no");
 				String title = rs.getString("title");
 				String attach = rs.getString("attach");
-				String reg_name = rs.getString("reg_name");
+				String name = rs.getString("name");
 				int hit = rs.getInt("hit");
 				String reg_date = rs.getString("reg_date");
 				String open = rs.getString("open");
 				String reg_id = rs.getString("reg_id");
 				
-				FreeDto dto = new FreeDto(no, title, attach, reg_name, reg_date, hit, open,reg_id);
+				FreeDto dto = new FreeDto(no, title, attach, name, reg_date, hit, open, reg_id);
 				arr.add(dto);
 			}
 		}catch(Exception e) {
