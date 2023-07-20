@@ -17,8 +17,8 @@ public class ReplyDao {
 	public int getReplySave(ReplyDto dto) {
 		int result = 0;
 		String query="insert into bike_김용석_coments\r\n" + 
-				"(no,reply,reply_date,reply_name)\r\n" + 
-				"values('"+dto.getNo()+"','"+dto.getReply()+"',to_date('"+dto.getReply_date()+"','yyyy-mm-dd hh24:mi:ss'),'"+dto.getReply_name()+"')";
+				"(no,noname,reply,reply_date,reply_name)\r\n" + 
+				"values('"+dto.getNo()+"','"+dto.getNoname()+"','"+dto.getReply()+"',to_date('"+dto.getReply_date()+"','yyyy-mm-dd hh24:mi:ss'),'"+dto.getReply_name()+"')";
 		
 		try {
 			con=DBConnection.getConnection();
@@ -37,7 +37,7 @@ public class ReplyDao {
 		ArrayList<ReplyDto> arr = new ArrayList<>();
 		String query = "select * from\r\n" + 
 				"(select rownum as rnum, tbl.* from\r\n" + 
-				"(select reply,to_char(reply_date,'yyyy-mm-dd hh24:mi:ss')as reply_date,reply_name \r\n" + 
+				"(select reply,noname,to_char(reply_date,'yyyy-mm-dd hh24:mi:ss')as reply_date,reply_name \r\n" + 
 				"from bike_김용석_coments\r\n" + 
 				"where no = '"+no+"'\r\n" + 
 				"order by reply_date "+order_coment+")tbl)\r\n" + 
@@ -49,11 +49,12 @@ public class ReplyDao {
 			rs=ps.executeQuery();
 			while(rs.next()) {
 				String reply = rs.getString("reply");
+				String noname = rs.getString("noname");
 				String reply_date = rs.getString("reply_date");
 				reply_date = CommonUtil.convertDate(reply_date);
 				String reply_name = rs.getString("reply_name");
 				
-				ReplyDto dto = new ReplyDto(reply, reply_date, reply_name);
+				ReplyDto dto = new ReplyDto(noname, reply, reply_date, reply_name);
 				arr.add(dto);
 			}
 		}catch(Exception e) {

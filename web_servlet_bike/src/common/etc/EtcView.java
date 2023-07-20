@@ -21,7 +21,9 @@ public class EtcView implements CommonExecute {
 		String no = request.getParameter("t_no");
 		String order_coment = request.getParameter("t_order_coment");
 		
-		if(order_coment == null) order_coment = "desc";
+		if(order_coment == null) {
+			order_coment = "desc";
+		}
 		
 		EtcDto dto = dao.getEtcView(no);
 		
@@ -64,6 +66,7 @@ public class EtcView implements CommonExecute {
 		request.setAttribute("t_dto", dto);
 		request.setAttribute("t_preDto", preDto);
 		request.setAttribute("t_nextDto", nextDto);
+		
 	}
 
 }

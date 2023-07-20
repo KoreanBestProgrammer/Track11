@@ -15,11 +15,12 @@
 	function goReply(){
 		
 		if(checkValue(reply.t_reply,"내용을 입력해주세요")) return;
+		if(checkValue(reply.t_noname,"익명선택을 해주세요")) return;
 		$.ajax({
 			type : "POST",     //어떤방식으로 넘길거냐
 			url : "ReplySave",
 			//url이 실행되면서 url의 소스(브라우저에 찍힌 소스)가 data라는 변수 안에 들어감.
-			data: "t_no="+reply.t_no.value+"&t_reply="+reply.t_reply.value, //t_id = url에 넘어갈 변수(mem.t_id.value를 t_id라는 변수에 담아서 url에 넘긴다 )
+			data: "t_no="+reply.t_no.value+"&t_reply="+reply.t_reply.value+"&t_noname="+reply.t_noname.value, //t_id = url에 넘어갈 변수(mem.t_id.value를 t_id라는 변수에 담아서 url에 넘긴다 )
 			dataType : "text",      //결과를 글자로 받겠다
 			error : function(){
 				alert('통신실패!!!!!');
@@ -65,11 +66,24 @@
 		reply.action="Etc";
 		reply.submit();
 	}
+	
+	$(function() {
+				$(".accordion").on("click",function() {
+				$(".panel").not($(this).next().slideToggle()).slideUp();
+				$(".accordion").not($(this)).removeClass("active");
+				$(this).toggleClass("active");
+			});
+	});
 </script>	
 <style>
 	.coment{
 		float:left;
 	}
+	
+	.faq-group .accordion {padding:18px; width:97%; text-align:left;border:0 none; background:transparent; font-size:16px; font-weight:bold; cursor:pointer;}
+	.faq-group .panel {padding:20px 18px; border-bottom:1px solid #ddd; line-height:1.8; display:none;}
+	.faq-group .panel textarea{width:100%; height:100px;}
+	
 </style>	
 		<div id="b_right">
 			<p class="n_title">
@@ -109,18 +123,16 @@
 			<input type="hidden" name="t_gubun">
 			<input type="hidden" name="t_no" value="${t_dto.getNo()}">
 			<input type="hidden" name="t_nowPage">
-				<table class="boardList">
-					<colgroup>
-						<col width="65%">
-						<col width="15%">
-						<col width="20%">
-					</colgroup>
-					<thead>
+			
+			<table class="boardForm">
+						<colgroup>
+							<col width="10%">
+							<col width="50%">
+							<col width="10%">
+						</colgroup>
 						<tr>
 							<th colspan="3">코멘트</th>
 						</tr>
-					</thead>
-					<tbody>
 						<tr>
 							<th colspan="3">
 								<div class="coment">
@@ -130,22 +142,47 @@
 									</select>
 								</div>
 							</th>
-						</tr>
-						<c:forEach items="${t_arr}" var="dto">
-						<tr>
-							<td class="t_left">${dto.getReply()}</td>
-							<td>${dto.getReply_name()}</td>
-							<td>${dto.getReply_date()}</td>
-						</tr>
-						</c:forEach>
+						</tr>	
+			</table>						
+			
+				<div class="faq-group">
+				
+				<c:forEach items="${t_arr}" var="dto">
+					<div class="accordion">
+						<table class="boardForm">
+							<colgroup>
+								<col width="65%">
+								<col width="15%">
+								<col width="20%">
+							</colgroup>		
+							<tr>
+								<td>${dto.getReply()}</td>	
+								<td>${dto.getReply_name()}</td>
+								<td style="text-align:center;">${dto.getReply_date()}</td>
+							</tr>				
+						</table>	
+					</div>
+					<div class="panel">
+						<textarea name="t_re_reply">
+							
+						</textarea>
+						<div class="buttonGroup">
+							<a href="javascript:goReReply()" class="butt">등록</a>	
+						</div>		
+					</div>
+				</c:forEach>
 						<tr>
 							<td class="t_left"><input type="text" name="t_reply" size="80" style="height:40px;"></td>
-							<td></td>
-							<td></td>
 						</tr>
-					</tbody>
-					</table>
-				</form>
+						<input type="radio" name="t_noname" value="0">익명
+						<input type="radio" name="t_noname" value="1">실명
+				<div class="buttonGroup" >
+						<a href="javascript:goReply()" class="butt">답글달기</a>
+						<a href="Etc" class="butt">List</a>
+				</div>	
+				</div>
+						
+			</form>
 			<div class="paging">
 				${t_paging}
 			</div>		
@@ -183,14 +220,7 @@
 				</a>
 			</c:if>	
 			</div>			
-			<div class="buttonGroup" >
-			<c:if test="${sessionId eq t_dto.getReg_id()}">
-				<a href="" class="butt">Delete</a>
-				<a href="notice_update.html" class="butt">Update</a>
-			</c:if>	
-				<a href="javascript:goReply()" class="butt">답글달기</a>
-				<a href="Etc" class="butt">List</a>
-			</div>	
+			
 		</div>	
 	</div>
 	<%@ include file = "../common_footer.jsp" %>

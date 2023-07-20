@@ -43,14 +43,17 @@ public class ReplySave extends HttpServlet {
 		ReplyDao dao = new ReplyDao();
 		
 		
-		
+		String noname = request.getParameter("t_noname");
+	
 		String no = request.getParameter("t_no");
 		String reply = request.getParameter("t_reply");
 		String reply_date = CommonUtil.getTodayTime();
+		
 		HttpSession session = request.getSession();
 		String reply_name = (String)session.getAttribute("sessionName");
+		if(noname == "0") reply_name = "익명";
 		
-		ReplyDto dto = new ReplyDto(no,reply, reply_date, reply_name);
+		ReplyDto dto = new ReplyDto(no, noname ,reply, reply_date, reply_name);
 		
 		int result = dao.getReplySave(dto);
 		
