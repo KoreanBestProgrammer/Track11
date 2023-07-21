@@ -18,6 +18,8 @@ public class EtcView implements CommonExecute {
 		EtcDao dao = new EtcDao();
 		ReplyDao reDao = new ReplyDao();
 		
+		
+		
 		String no = request.getParameter("t_no");
 		String order_coment = request.getParameter("t_order_coment");
 		
@@ -53,6 +55,8 @@ public class EtcView implements CommonExecute {
 		
 		
 		ArrayList<ReplyDto> arr = reDao.getReplyList(order_coment,start,end,no);
+		
+		
 		
 		String paging = CommonUtil.pageListPost(current_page, total_page, pageNumber_count);
 		

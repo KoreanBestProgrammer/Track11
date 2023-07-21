@@ -16,33 +16,33 @@ public class EtcDao {
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 	
-	
-	
 	public String getNo() {
 		String no = "";
-		String query="select nvl(max(no),'N000')as no from bike_김용석_etc";
-		
+		String query = "select nvl(max(cono),'N000') as cono from bike_김용석_etc";
 		try {
 			con=DBConnection.getConnection();
 			ps=con.prepareStatement(query);
 			rs=ps.executeQuery();
 			if(rs.next()) {
-				no = rs.getString("no");
+				no = rs.getString("cono");
 				no = no.substring(1);
 				int num = Integer.parseInt(no);
-				num = num + 1;
-				DecimalFormat df = new DecimalFormat("N000");
+				num = num+1;
+				DecimalFormat df = new DecimalFormat("C000");
 				no = df.format(num);
+				
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
 			System.out.println(query);
+			e.printStackTrace();
 		}finally {
 			DBConnection.closeDB(con, ps, rs);
 		}
 		
+		
 		return no;
 	}
+	
 
 
 

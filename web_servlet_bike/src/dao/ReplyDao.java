@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import common.CommonUtil;
@@ -54,6 +55,7 @@ public class ReplyDao {
 				reply_date = CommonUtil.convertDate(reply_date);
 				String reply_name = rs.getString("reply_name");
 				
+				
 				ReplyDto dto = new ReplyDto(noname, reply, reply_date, reply_name);
 				arr.add(dto);
 			}
@@ -86,6 +88,7 @@ public class ReplyDao {
 		
 		return count;
 	}
+	
 	
 	
 	

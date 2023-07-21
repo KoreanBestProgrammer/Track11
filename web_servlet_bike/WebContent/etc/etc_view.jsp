@@ -12,8 +12,9 @@
 		etc.action="Etc";
 		etc.submit();
 	}
+	
 	function goReply(){
-		
+		if(checkValue(reply.t_sessionId,"로그인 후 입력해주세요")) return;
 		if(checkValue(reply.t_reply,"내용을 입력해주세요")) return;
 		if(checkValue(reply.t_noname,"익명선택을 해주세요")) return;
 		$.ajax({
@@ -123,7 +124,7 @@
 			<input type="hidden" name="t_gubun">
 			<input type="hidden" name="t_no" value="${t_dto.getNo()}">
 			<input type="hidden" name="t_nowPage">
-			
+			<input type="hidden" name="t_sessionId" value="${sessionId}">
 			<table class="boardForm">
 						<colgroup>
 							<col width="10%">
@@ -156,30 +157,46 @@
 								<col width="20%">
 							</colgroup>		
 							<tr>
-								<td>${dto.getReply()}</td>	
-								<td>${dto.getReply_name()}</td>
+								<td>${dto.getReply()}</td>
+								<c:choose>	
+									<c:when test="${dto.getNoname() eq '1'}">
+										<td style="text-align:center;">${dto.getReply_name()}</td>
+									</c:when>
+									<c:otherwise>
+										<td style="text-align:center;">익명</td>			
+									</c:otherwise>
+								</c:choose>
 								<td style="text-align:center;">${dto.getReply_date()}</td>
 							</tr>				
 						</table>	
 					</div>
+					
+					
 					<div class="panel">
-						<textarea name="t_re_reply">
-							
-						</textarea>
-						<div class="buttonGroup">
-							<a href="javascript:goReReply()" class="butt">등록</a>	
-						</div>		
+						<c:if test="${not empty sessionId}">
+							<textarea>
+								
+							</textarea>
+								<div class="buttonGroup">
+									<a href="" class="butt">등록</a>	
+									<input type="radio" name="t_noname" value="0">익명
+									<input type="radio" name="t_noname" value="1">실명
+								</div>	
+						</c:if>				
 					</div>
+				
 				</c:forEach>
 						<tr>
 							<td class="t_left"><input type="text" name="t_reply" size="80" style="height:40px;"></td>
 						</tr>
 						<input type="radio" name="t_noname" value="0">익명
 						<input type="radio" name="t_noname" value="1">실명
+				
 				<div class="buttonGroup" >
 						<a href="javascript:goReply()" class="butt">답글달기</a>
 						<a href="Etc" class="butt">List</a>
 				</div>	
+				
 				</div>
 						
 			</form>

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.CommonToday;
 import common.etc.EtcList;
-
 import common.etc.EtcView;
 import common.etc.EtcWrite;
 
@@ -65,6 +64,8 @@ public class Etc extends HttpServlet {
 			viewPage = "etc/etc_view.jsp";
 			
 		}
+			
+		
 		
 		
 		
