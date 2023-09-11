@@ -70,6 +70,7 @@ public class EtcView implements CommonExecute {
 		request.setAttribute("t_dto", dto);
 		request.setAttribute("t_preDto", preDto);
 		request.setAttribute("t_nextDto", nextDto);
+		request.setAttribute("t_totalCount", totalCount);
 		
 	}
 

@@ -1,7 +1,7 @@
 package dto;
 
 public class ReplyDto {
-	private String no,reply,reply_date,reply_name,noname;
+	private String no,reply,reply_date,reply_name,noname,c_no,c_cno;
 
 	
 	
@@ -15,8 +15,9 @@ public class ReplyDto {
 		
 	}
 
-	public ReplyDto( String no, String noname, String reply, String reply_date, String reply_name) {
+	public ReplyDto(String c_no, String no, String noname, String reply, String reply_date, String reply_name) {
 		super();
+		this.c_no = c_no;
 		this.no = no;
 		this.noname = noname;
 		this.reply = reply;
@@ -42,5 +43,11 @@ public class ReplyDto {
 	}
 	public String getNoname() {
 		return noname;
+	}
+	public String getC_no() {
+		return c_no;
+	}
+	public String getC_cno() {
+		return c_cno;
 	}
 }

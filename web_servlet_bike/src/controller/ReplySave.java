@@ -42,7 +42,7 @@ public class ReplySave extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		ReplyDao dao = new ReplyDao();
 		
-		
+		String c_no = dao.getC_no();
 		String noname = request.getParameter("t_noname");
 		String no = request.getParameter("t_no");
 		String reply = request.getParameter("t_reply");
@@ -52,7 +52,7 @@ public class ReplySave extends HttpServlet {
 		String reply_name = (String)session.getAttribute("sessionName");
 		 
 		
-		ReplyDto dto = new ReplyDto(no, noname ,reply, reply_date, reply_name);
+		ReplyDto dto = new ReplyDto(c_no, no, noname ,reply, reply_date, reply_name);
 		
 		int result = dao.getReplySave(dto);
 		

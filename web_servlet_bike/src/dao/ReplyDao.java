@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import common.CommonUtil;
@@ -17,8 +18,8 @@ public class ReplyDao {
 	public int getReplySave(ReplyDto dto) {
 		int result = 0;
 		String query="insert into bike_김용석_coments\r\n" + 
-				"(no,noname,reply,reply_date,reply_name)\r\n" + 
-				"values('"+dto.getNo()+"','"+dto.getNoname()+"','"+dto.getReply()+"',to_date('"+dto.getReply_date()+"','yyyy-mm-dd hh24:mi:ss'),'"+dto.getReply_name()+"')";
+				"(c_no,no,noname,reply,reply_date,reply_name)\r\n" + 
+				"values('"+dto.getC_no()+"','"+dto.getNo()+"','"+dto.getNoname()+"','"+dto.getReply()+"',to_date('"+dto.getReply_date()+"','yyyy-mm-dd hh24:mi:ss'),'"+dto.getReply_name()+"')";
 		
 		try {
 			con=DBConnection.getConnection();
@@ -86,6 +87,32 @@ public class ReplyDao {
 		}
 		
 		return count;
+	}
+	public String getC_no() {
+		String c_no = "";
+		String query = "select nvl(max(c_no),'C000')as c_no from bike_김용석_coments";
+		
+		try {
+			con=DBConnection.getConnection();
+			ps=con.prepareStatement(query);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				c_no = rs.getString("c_no");
+				c_no = c_no.substring(1);
+				int num = Integer.parseInt(c_no);
+				num = num+1;
+				DecimalFormat df = new DecimalFormat("C000");
+				c_no = df.format(num);
+				
+			}
+		}catch(Exception e) {
+			System.out.println(query);
+			e.printStackTrace();
+		}finally {
+			DBConnection.closeDB(con, ps, rs);
+		}
+		
+		return c_no;
 	}
 	
 	

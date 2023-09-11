@@ -21,7 +21,7 @@
 			type : "POST",     //어떤방식으로 넘길거냐
 			url : "ReplySave",
 			//url이 실행되면서 url의 소스(브라우저에 찍힌 소스)가 data라는 변수 안에 들어감.
-			data: "t_no="+reply.t_no.value+"&t_reply="+reply.t_reply.value+"&t_noname="+reply.t_noname.value, //t_id = url에 넘어갈 변수(mem.t_id.value를 t_id라는 변수에 담아서 url에 넘긴다 )
+			data: "t_c_no="+reply.t_c_no.value+"&t_no="+reply.t_no.value+"&t_reply="+reply.t_reply.value+"&t_noname="+reply.t_noname.value, //t_id = url에 넘어갈 변수(mem.t_id.value를 t_id라는 변수에 담아서 url에 넘긴다 )
 			dataType : "text",      //결과를 글자로 받겠다
 			error : function(){
 				alert('통신실패!!!!!');
@@ -123,6 +123,7 @@
 			<form name="reply">
 			<input type="hidden" name="t_gubun">
 			<input type="hidden" name="t_no" value="${t_dto.getNo()}">
+			<input type="hidden" name="t_c_no">
 			<input type="hidden" name="t_nowPage">
 			<input type="hidden" name="t_sessionId" value="${sessionId}">
 			<table class="boardForm">
@@ -142,6 +143,9 @@
 										<option value="asc" <c:if test="${t_order_coment eq 'asc'}">selected</c:if> >오래된순</option>
 									</select>
 								</div>
+								<div class="record_group record_group_left">
+									<p><i class="fa-solid fa-bell"></i> 총게시글<span>${t_totalCount}</span>건</p>
+								</div>	
 							</th>
 						</tr>	
 			</table>						
@@ -174,9 +178,7 @@
 					
 					<div class="panel">
 						<c:if test="${not empty sessionId}">
-							<textarea>
-								
-							</textarea>
+							<td class="t_left"><input type="text" name="" value="" size="80" style="height:40px;"></td>
 								<div class="buttonGroup">
 									<a href="" class="butt">등록</a>	
 									<input type="radio" name="t_noname" value="0">익명
