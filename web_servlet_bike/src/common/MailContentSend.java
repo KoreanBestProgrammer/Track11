@@ -25,7 +25,7 @@ public class MailContentSend {
 		this.USERNAME = user;
 		this.PASSWORD = password;
 	}
-	public void sendMail(String fromName,String fromMailAddr,String toMailAddr,String title, String content) throws Exception{
+	public void sendMail(String fromName,String fromMailAddr,String toMailAddr,String title, String content,String pw) throws Exception{
 	   Properties props = new Properties();
 	   props.put("mail.smtp.host", SMPT_HOSTNAME);
 	   props.put("mail.from",fromMailAddr);
